@@ -1,0 +1,21 @@
+POST http://127.0.0.1:4024/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "idStudent": "18520651",
+    "password": "18520651",
+    "role": "student",
+    "gender":"Male",
+    "fullname":"Tu Thanh Duong",
+}
+
+###
+
+POST http://127.0.0.1:4024/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "idStudent": "18520651",
+    "password": "18520651",
+    "role": "student"
+}

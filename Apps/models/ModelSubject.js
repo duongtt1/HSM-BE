@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var SubjectModel = new Schema({
+var ModelSubject = new Schema({
     nameSubject: { 
         type: String, 
         required: true 
@@ -18,4 +18,4 @@ var SubjectModel = new Schema({
     }],
 });
 
-module.exports = mongoose.model("SubjectModel", SubjectModel);
+module.exports = mongoose.model("ModelSubject", ModelSubject);

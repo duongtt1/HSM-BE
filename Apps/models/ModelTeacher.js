@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var TeacherModel = new Schema({
+var ModelTeacher = new Schema({
     fullname: { 
         type: String, 
         required: true 
@@ -18,4 +18,4 @@ var TeacherModel = new Schema({
     }],
 });
 
-module.exports = mongoose.model("TeacherModel", TeacherModel);
+module.exports = mongoose.model("ModelTeacher", ModelTeacher);

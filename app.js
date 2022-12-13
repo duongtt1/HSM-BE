@@ -19,7 +19,6 @@ const DBConnection = require("./Apps/config/db");
 DBConnection();
 
 // Routes
-const usersRoutes = require("./Apps/routes/users");
 const authRoutes = require("./Apps/routes/auth")
 
 // init Epress App
@@ -49,7 +48,6 @@ app.use(express.static(path.join(__dirname, "Apps/public")));
 const versionOne = (routeName) => `/api/v1/${routeName}`;
 
 // register routes
-app.use(versionOne("users"), usersRoutes);
 app.use(versionOne("auth"), authRoutes);
 
 app.use(errorHandler);
