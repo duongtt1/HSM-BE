@@ -41,15 +41,14 @@ exports.register = asyncHandler(async (req, res, next) => {
  * @desc    Login user
  */
 exports.login = asyncHandler(async (req, res, next) => {
-	var { idStudent, password } = req.body;
-	// console.log(req.body);
-	// Validate email & password
-	if (!idStudent || !password) {
+	var { username, password } = req.body;
+	if (!username || !password) {
 		return next(new ErrorResponse("Please provide an email and password", 400));
 	}
-	idStudent = idStudent.toLowerCase();
+	iduser = username.toLowerCase();
 	// Check for user
 	if (req.body.role === "student") {
+		idStudent = iduser;
 		const student = await Students.findOne({ idStudent }).select("+password");
 		if (!student) {
 			return next(new ErrorResponse("Invalid credentials", 401));
@@ -59,5 +58,27 @@ exports.login = asyncHandler(async (req, res, next) => {
 			return next(new ErrorResponse("Invalid credentials", 401));
 		}
 		res.status(200).json({ success: true, token: student.token });
+	}else if (req.body.role === "teacher"){
+		idTeacher = iduser;
+		const teacher = await Teachers.findOne({ idTeacher }).select("+password");
+		if (!teacher) {
+			return next(new ErrorResponse("Invalid credentials", 401));
+		}
+		const isMatch = await teacher.matchPassword(password);
+		if (!isMatch) {
+			return next(new ErrorResponse("Invalid credentials", 401));
+		}
+		res.status(200).json({ success: true, token: teacher.token });
+	}else if (req.body.role === "admin"){
+		idAdmin = iduser;
+		const admin = await Admins.findOne({ idAdmin }).select("+password");
+		if (!admin) {
+			return next(new ErrorResponse("Invalid credentials", 401));
+		}
+		const isMatch = await admin.matchPassword(password);
+		if (!isMatch) {
+			return next(new ErrorResponse("Invalid credentials", 401));
+		}
+		res.status(200).json({ success: true, token: admin.token });
 	}
 });

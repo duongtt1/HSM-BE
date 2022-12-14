@@ -1,21 +1,70 @@
+### Register Student
 POST http://127.0.0.1:4024/api/v1/auth/register
 Content-Type: application/json
 
 {
-    "idStudent": "18520651",
-    "password": "18520651",
+    "idStudent": "student1",
+    "password": "student1",
     "role": "student",
     "gender":"Male",
-    "fullname":"Tu Thanh Duong",
+    "fullname":"student1"
 }
 
-###
+### Register Teacher
+POST http://127.0.0.1:4024/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "idTeacher": "teacher1",
+    "password": "teacher1",
+    "role": "teacher",
+    "gender":"Male",
+    "fullname":"teacher1"
+}
+
+### Register Admin
+POST http://127.0.0.1:4024/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "idAdmin": "admin1",
+    "password": "admin1",
+    "role": "admin",
+    "gender":"Male",
+    "fullname":"admin1"
+}
+
+### Login  Students
 
 POST http://127.0.0.1:4024/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "idStudent": "18520651",
-    "password": "18520651",
+    "username": "student1",
+    "password": "student1",
     "role": "student"
 }
+
+### Login  Teacher
+
+POST http://127.0.0.1:4024/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "teacher1",
+    "password": "teacher1",
+    "role": "teacher"
+}
+
+
+### Login  Admin
+
+POST http://127.0.0.1:4024/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin1",
+    "password": "admin1",
+    "role": "admin"
+}
+

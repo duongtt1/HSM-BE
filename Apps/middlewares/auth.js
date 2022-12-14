@@ -1,43 +1,45 @@
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("./async");
 const ErrorResponse = require("../utils/errorResponse");
-const User = require("../models/User");
+
+//! Models
+const Students = require("../models/ModelStudent");
+const Teachers = require("../models/ModelTeacher");
+const Admins = require("../models/ModelAdministrator");
 
 exports.protect = asyncHandler(async (req, res, next) => {
-	let token;
-
-	if (
-		req.headers.authorization &&
-		req.headers.authorization.startsWith("Bearer")
-	) {
-		token = req.headers.authorization.split(" ")[1];
-	} else if (req.cookies.token) {
-		// nếu đã đăng nhập trc rồi thì pass luôn
-		token = req.cookies.token;
-	}
-
+	let token = req.body.token;
+	console.log(req.body);
 	if (!token) {
-		return next(new ErrorResponse("Bạn không có quyền truy cập", 401));
+		return next(new ErrorResponse("Denied", 401));
 	}
 
 	try {
-		// Xác thực token
+		// verify token
 		const decoded = jwt.verify(token, process.env.JWT_SECRET);
-		// console.log(decoded);
-		req.user = await User.findById(decoded.token);
-		// console.log(req.user);
+		console.log(decoded);
+		if (await Students.findById(decoded._id)){
+			req.role = "student"
+		}else if (await Teachers.findById(decoded._id)){
+			req.role = "teacher"
+		}else if (await Admins.findById(decoded._id)){
+			req.role = "admin"
+		}else{
+			return next(new ErrorResponse("Denied", 401));
+		}
+
 		next();
 	} catch (err) {
-		return next(new ErrorResponse("Bạn không có quyền truy cập", 401));
+		return next(new ErrorResponse("Denied", 401));
 	}
 });
 
 exports.authorize = (...roles) => {
 	return (req, res, next) => {
-		if (!roles.includes(req.user.role)) {
+		if (!roles.includes(req.role)) {
 			return next(
 				new ErrorResponse(
-					`no access to ${req.user.role}`,
+					`no access to ${req.role}`,
 					403
 				)
 			);

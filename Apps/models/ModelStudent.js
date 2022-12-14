@@ -18,6 +18,7 @@ var StudentSchema = new Schema({
     },
     token: {
         type: String,
+        unique: true
     },
     password: {
         type: String,
