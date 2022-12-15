@@ -34,7 +34,7 @@ exports.getAllTeachers = asyncHandler(async (req, res, next) => {
 /**
  * @desc    Edit teacher by ID
  */
-exports.updateStudentByID = asyncHandler(async (req, res, next) => {
+exports.updateTeacherByID = asyncHandler(async (req, res, next) => {
     delete req.body.token;
     const teacher = await Teachers.findOneAndUpdate({ idTeacher:req.body.idTeacher }, req.body);
     
@@ -48,7 +48,7 @@ exports.updateStudentByID = asyncHandler(async (req, res, next) => {
 /**
  * @desc    Delete teacher by ID
  */
-exports.deleteStudentByID = asyncHandler(async (req, res, next) => {
+exports.deleteTeacherByID = asyncHandler(async (req, res, next) => {
     const teacher = await Teachers.findOneAndDelete({ idTeacher:req.body.idTeacher });
     
     if (!teacher) { 

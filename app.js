@@ -21,6 +21,9 @@ DBConnection();
 // Routes
 const authRoutes = require("./Apps/routes/auth")
 const studentRoutes = require("./Apps/routes/student")
+const teacherRoutes = require("./Apps/routes/teacher")
+const adminRoutes = require("./Apps/routes/admin")
+const classRoutes = require("./Apps/routes/class")
 
 // init Epress App
 const app = express();
@@ -51,6 +54,9 @@ const versionOne = (routeName) => `/api/v1/${routeName}`;
 // register routes
 app.use(versionOne("auth"), authRoutes);
 app.use(versionOne("students"), studentRoutes);
+app.use(versionOne("teachers"), teacherRoutes);
+app.use(versionOne("admins"), adminRoutes);
+app.use(versionOne("classes"), classRoutes);
 
 app.use(errorHandler);
 

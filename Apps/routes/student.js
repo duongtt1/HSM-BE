@@ -5,10 +5,15 @@ const { protect, authorize } = require("../middlewares/auth");
 
 const {
     getStudentByID,
-    getAllStudents
+    getAllStudents,
+    deleteStudentByID,
 } = require("../controllers/student");
 
-router.route("/:idStudent").get(protect, getStudentByID);
+router.route("/:idStudent")
+    .get(protect, getStudentByID)
+    .delete(protect, authorize("admin"), deleteStudentByID)
+    .put(protect, authorize("admin"), updateStudentByID);
+
 router.route("/getall").get(protect, getAllStudents);
 
 module.exports = router;
