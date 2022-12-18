@@ -13,7 +13,7 @@ var ModelSubject = new Schema({
     },
     class: [{ 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "ModelClass" 
     }],
 });
