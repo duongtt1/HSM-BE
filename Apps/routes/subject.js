@@ -10,7 +10,7 @@ const {
     deleteSubjectByID
 } = require("../controllers/subject");
 
-router.route("/:idSubject")
+router.route("/id/:idSubject")
     .get(protect, getSubjectByID)
     .delete(protect, authorize("admin"), deleteSubjectByID)
     .put(protect, authorize("admin"), updateSubjectByID);

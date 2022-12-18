@@ -1,0 +1,6 @@
+POST http://127.0.0.1:4024/api/v1/subjects/
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Mzk4N2Y3OWQyYTI3NTRmNDc2OTcwODciLCJpYXQiOjE2NzA5Mzg0ODl9.6ld4A8IFcGPzAcxANkl4k_CdBQp3PeoQs9jC_BYVY3c"
+}
