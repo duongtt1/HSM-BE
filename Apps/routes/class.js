@@ -12,17 +12,26 @@ const {
     getAssignmentsOfClassByID,
     deleteClassByID,
     updateClassByID,
+    addTeacherToClassByID,
+    addStudentToClassByID,
+    addAssginmentsToClassByID,
 } = require("../controllers/class");
 
-router.route("/:idClass")
+router.route("/id/:idClass")
     .get(protect, getClassByID)
-    .delete(protect, authorize("admin"), deleteClassByID)
-    .put(protect, authorize("admin"), updateClassByID)
-    .post(protect, authorize("admin"), createClass);
+    .delete(protect, deleteClassByID)
+    .put(protect, updateClassByID)
+    .post(protect, createClass);
 
 router.route("/getall").get(protect, getAllClass);
-router.route("/getstudent/:idClass").get(protect, getStudentsOfClassByID);
-router.route("/getteacher/:idClass").get(protect, getTeachersOfClassByID);
-router.route("/getassign/:idClass").get(protect, getAssignmentsOfClassByID);
+router.route("/student/:idClass")
+    .get(protect, getStudentsOfClassByID)
+    .post(protect, addStudentToClassByID);
+router.route("/teacher/:idClass")
+    .get(protect, getTeachersOfClassByID)
+    .post(protect, addTeacherToClassByID);
+router.route("/assign/:idClass")
+    .get(protect, getAssignmentsOfClassByID)
+    .post(protect, addAssginmentsToClassByID);
 
 module.exports = router;
