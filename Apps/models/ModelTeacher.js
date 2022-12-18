@@ -7,11 +7,11 @@ var Schema = mongoose.Schema;
 var SchemaTeacher = new Schema({
     fullname: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     idTeacher: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     token: {
         type: String,
@@ -27,7 +27,7 @@ var SchemaTeacher = new Schema({
     },
     class: [{ 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "ModelClass" 
     }],
 });

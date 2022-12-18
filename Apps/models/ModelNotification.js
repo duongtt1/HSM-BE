@@ -9,17 +9,17 @@ var ModelNotification = new Schema({
     },
     student: { 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "ModelStudent" 
     },
     teacher: { 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "TeacherModel" 
     },
     parent: { 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "ModelParent" 
     },
 });

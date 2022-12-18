@@ -5,17 +5,17 @@ var Schema = mongoose.Schema;
 var ModelTranscript = new Schema({
     student: {
         type: Schema.Types.ObjectId,
-        required: true,
+        // required: true,
         ref: "ModelStudent"
     },
     subject: {
         type: Schema.Types.ObjectId,
-        required: true,
+        // required: true,
         ref: 'SubjectModel'
     },
     teacher: {
         type: Schema.Types.ObjectId,
-        required: true,
+        // required: true,
         ref: 'TeacherModel'
     }
 });

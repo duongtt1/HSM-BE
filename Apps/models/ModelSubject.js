@@ -5,11 +5,11 @@ var Schema = mongoose.Schema;
 var ModelSubject = new Schema({
     nameSubject: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     idSubject: { 
         type: String, 
-        required: true 
+        // required: true 
     },
     class: [{ 
         type: Schema.Types.ObjectId, 

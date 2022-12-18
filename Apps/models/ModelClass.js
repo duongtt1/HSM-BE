@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var ModelClass = new Schema({
     listStudent: [{ 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "ModelStudent" 
     }],
     nameClass: { 
@@ -20,12 +20,12 @@ var ModelClass = new Schema({
         ref: "AssignmentModel" }],
     subject: { 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "SubjectModel" 
     },
     teachers: [{ 
         type: Schema.Types.ObjectId, 
-        required: true, 
+        // required: true, 
         ref: "TeacherModel" 
     }],
 });
