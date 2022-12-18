@@ -17,6 +17,8 @@ const {
     addAssginmentsToClassByID,
 } = require("../controllers/class");
 
+router.route("/").post(protect, createClass);
+
 router.route("/id/:idClass")
     .get(protect, getClassByID)
     .delete(protect, deleteClassByID)
