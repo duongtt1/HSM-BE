@@ -7,13 +7,16 @@ const {
     getSubjectByID,
     getAllSubjects,
     updateSubjectByID,
-    deleteSubjectByID
+    deleteSubjectByID,
+    createSubject
 } = require("../controllers/subject");
+
+router.route("/").post(protect, createSubject);
 
 router.route("/id/:idSubject")
     .get(protect, getSubjectByID)
-    .delete(protect, authorize("admin"), deleteSubjectByID)
-    .put(protect, authorize("admin"), updateSubjectByID);
+    .delete(protect, deleteSubjectByID)
+    .put(protect, updateSubjectByID);
 
 router.route("/getall").get(protect, getAllSubjects);
 

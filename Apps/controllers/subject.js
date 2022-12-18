@@ -5,6 +5,19 @@ const ErrorResponse = require("../utils/errorResponse");
 const Subjects = require("../models/ModelSubject");
 
 /**
+ * @desc    Create class
+ */
+exports.createSubject = asyncHandler(async (req, res, next) => {
+    const subject = await Subjects.create(req.body);
+
+    if (!subject) { 
+        return next(new ErrorResponse(`Subject create error`, 404)); 
+    }
+
+    res.status(200).json({ success: true, data: subject });
+});
+
+/**
  * @desc    Get subject by ID
  */
 exports.getSubjectByID = asyncHandler(async (req, res, next) => {
