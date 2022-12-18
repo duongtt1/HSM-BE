@@ -8,7 +8,8 @@ const {
     getAllSubjects,
     updateSubjectByID,
     deleteSubjectByID,
-    createSubject
+    createSubject,
+    addClassToSubjectByID
 } = require("../controllers/subject");
 
 router.route("/").post(protect, createSubject);
@@ -17,6 +18,8 @@ router.route("/id/:idSubject")
     .get(protect, getSubjectByID)
     .delete(protect, deleteSubjectByID)
     .put(protect, updateSubjectByID);
+
+router.route("/update/:idSubject").put(protect, addClassToSubjectByID);
 
 router.route("/getall").get(protect, getAllSubjects);
 

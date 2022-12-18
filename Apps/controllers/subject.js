@@ -50,7 +50,7 @@ exports.getAllSubjects = asyncHandler(async (req, res, next) => {
  */
 exports.updateSubjectByID = asyncHandler(async (req, res, next) => {
     delete req.body.token;
-    const subject = await Subjects.findOneAndUpdate({ idSubject: req.body.idSubject }, req.body);
+    const subject = await Subjects.findOneAndUpdate({ idSubject: req.params.idSubject }, req.body);
     
     if (!subject) { 
         return next(new ErrorResponse(`Subject not found with id of ${req.body.idSubject}`, 404)); 
@@ -63,11 +63,32 @@ exports.updateSubjectByID = asyncHandler(async (req, res, next) => {
  * @desc    Delete subject by ID
  */
 exports.deleteSubjectByID = asyncHandler(async (req, res, next) => {
-    const subject = await Subjects.findOneAndDelete({idSubject: req.body.idSubject });
+    const subject = await Subjects.findOneAndDelete({idSubject: req.params.idSubject });
     
     if (!subject) { 
         return next(new ErrorResponse(`Subject not found with id of ${req.body.idSubject}`, 404)); 
     }
+
+    res.status(200).json({ success: true });
+});
+
+/**
+ * @desc    add class to subject by ID
+ */
+exports.addClassToSubjectByID = asyncHandler(async (req, res, next) => {
+    const subject = await Subjects.findOne({idSubject: req.params.idSubject });
+    
+    if (!subject) { 
+        return next(new ErrorResponse(`Subject not found with id of ${req.body.idSubject}`, 404)); 
+    }
+
+    subject.classes.push(req.body.idClass);
+
+    subject.save().then((err, res) => {{ 
+        if (err) { 
+            return next(new ErrorResponse(`Subject not found with id of ${req.body.idSubject}`, 404)); 
+        }
+    }});
 
     res.status(200).json({ success: true });
 });
