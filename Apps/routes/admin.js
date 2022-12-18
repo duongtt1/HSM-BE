@@ -10,10 +10,10 @@ const {
     updateAdminByID
 } = require("../controllers/admin");
 
-router.route("/:idAdmin")
+router.route("/id/:idAdmin")
     .get(protect, getAdminByID)
-    .delete(protect, authorize("admin"), deleteAdminByID)
-    .put(protect, authorize("admin"), updateAdminByID);
+    .delete(protect, deleteAdminByID)
+    .put(protect, updateAdminByID);
 
 router.route("/getall").get(protect, getAllAdmins);
 
