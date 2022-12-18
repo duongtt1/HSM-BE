@@ -33,7 +33,7 @@ exports.getSubjectByID = asyncHandler(async (req, res, next) => {
 });
 
 /**
- * @desc    Get All students
+ * @desc    Get All subjects
  */
 exports.getAllSubjects = asyncHandler(async (req, res, next) => {
     const list_subjects = await Subjects.find();
@@ -50,7 +50,7 @@ exports.getAllSubjects = asyncHandler(async (req, res, next) => {
  */
 exports.updateSubjectByID = asyncHandler(async (req, res, next) => {
     delete req.body.token;
-    const subject = await Students.findOneAndUpdate({ idSubject: req.body.idSubject }, req.body);
+    const subject = await Subjects.findOneAndUpdate({ idSubject: req.body.idSubject }, req.body);
     
     if (!subject) { 
         return next(new ErrorResponse(`Subject not found with id of ${req.body.idSubject}`, 404)); 
@@ -63,7 +63,7 @@ exports.updateSubjectByID = asyncHandler(async (req, res, next) => {
  * @desc    Delete subject by ID
  */
 exports.deleteSubjectByID = asyncHandler(async (req, res, next) => {
-    const subject = await Students.findOneAndDelete({idSubject: req.body.idSubject });
+    const subject = await Subjects.findOneAndDelete({idSubject: req.body.idSubject });
     
     if (!subject) { 
         return next(new ErrorResponse(`Subject not found with id of ${req.body.idSubject}`, 404)); 
