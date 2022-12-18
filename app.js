@@ -24,6 +24,7 @@ const studentRoutes = require("./Apps/routes/student")
 const teacherRoutes = require("./Apps/routes/teacher")
 const adminRoutes = require("./Apps/routes/admin")
 const classRoutes = require("./Apps/routes/class")
+const subjectRoutes = require("./Apps/routes/subject")
 
 // init Epress App
 const app = express();
@@ -57,6 +58,7 @@ app.use(versionOne("students"), studentRoutes);
 app.use(versionOne("teachers"), teacherRoutes);
 app.use(versionOne("admins"), adminRoutes);
 app.use(versionOne("classes"), classRoutes);
+app.use(versionOne("subjects"), subjectRoutes);
 
 app.use(errorHandler);
 

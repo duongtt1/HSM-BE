@@ -7,6 +7,7 @@ const {
     getStudentByID,
     getAllStudents,
     deleteStudentByID,
+    updateStudentByID
 } = require("../controllers/student");
 
 router.route("/:idStudent")

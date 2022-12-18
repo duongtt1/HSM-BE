@@ -136,13 +136,47 @@ exports.deleteClassByID = asyncHandler(async (req, res, next) => {
 });
 
 /**
- * @desc    Add teacher to class
+ * @desc    Add teacher to class by ID
  */
+exports.addTeacherToClassByID = asyncHandler(async (req, res, next) => {
+	var { idClass } = req.params
+    const classroom = await Classes.findOne({idClass}).select("-password -token -__v");
+    if (!classroom) { 
+        return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
+    }
+    req.body.list_teacher.each(function (data) {
+        classroom.teachers.push(data);
+    });
+    classroom.save();
+    res.status(200).json({ success: true, data: classroom });
+});
 
 /**
  * @desc    Add student to class
  */
+exports.addStudentToClassByID = asyncHandler(async (req, res, next) => {
+	var { idClass } = req.params
+    const classroom = await Classes.findOne({idClass}).select("-password -token -__v");
+    if (!classroom) { 
+        return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
+    }
+    req.body.list_students.each(function (data) {
+        classroom.listStudent.push(data);
+    });
+    classroom.save();
+    res.status(200).json({ success: true, data: classroom });
+});
 
 /**
  * @desc    Add assginments to class
  */
+exports.addAssginmentsToClassByID = asyncHandler(async (req, res, next) => {
+	var { idClass } = req.params
+    const classroom = await Classes.findOne({idClass}).select("-password -token -__v");
+    if (!classroom) { 
+        return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
+    }
+    classroom.listStudent.push(req.body.assignment);
+    classroom.save();
+    res.status(200).json({ success: true, data: classroom });
+});

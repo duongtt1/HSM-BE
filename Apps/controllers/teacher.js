@@ -25,7 +25,7 @@ exports.getAllTeachers = asyncHandler(async (req, res, next) => {
     const list_teacher = await Teachers.find().select("-password -token -__v");
     
     if (!list_teacher) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${idTeacher}`, 404)); 
+        return next(new ErrorResponse(`Teacher not found`, 404)); 
     }
 
     res.status(200).json({ success: true, data: list_teacher });
@@ -39,7 +39,7 @@ exports.updateTeacherByID = asyncHandler(async (req, res, next) => {
     const teacher = await Teachers.findOneAndUpdate({ idTeacher:req.body.idTeacher }, req.body);
     
     if (!teacher) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${idTeacher}`, 404)); 
+        return next(new ErrorResponse(`Teacher not found with id of ${req.body.idTeacher}`, 404)); 
     }
 
     res.status(200).json({ success: true, data: teacher });
@@ -52,7 +52,7 @@ exports.deleteTeacherByID = asyncHandler(async (req, res, next) => {
     const teacher = await Teachers.findOneAndDelete({ idTeacher:req.body.idTeacher });
     
     if (!teacher) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${idTeacher}`, 404)); 
+        return next(new ErrorResponse(`Teacher not found with id of ${req.body.idTeacher}`, 404)); 
     }
 
     res.status(200).json({ success: true });
