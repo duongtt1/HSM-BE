@@ -126,10 +126,10 @@ exports.updateClassByID = asyncHandler(async (req, res, next) => {
  * @desc    Delete class by ID
  */
 exports.deleteClassByID = asyncHandler(async (req, res, next) => {
-    const class_room = await Classes.findOneAndDelete({ codeClass: req.params.codeClass });
+    const class_room = await Classes.findOneAndDelete({ codeClass: req.params.idClass });
     
     if (!class_room) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${req.params.codeClass}`, 404)); 
+        return next(new ErrorResponse(`Classes not found with id of ${req.params.idClass}`, 404)); 
     }
 
     res.status(200).json({ success: true });
