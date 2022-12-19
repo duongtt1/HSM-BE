@@ -87,7 +87,7 @@ exports.getTeachersOfClassByID = asyncHandler(async (req, res, next) => {
 exports.getClassByID = asyncHandler(async (req, res, next) => {
 	var { idClass } = req.params
 
-    const classroom = await Classes.findOne({idClass}).select("-password -token -__v");
+    const classroom = await Classes.findOne({codeClass: idClass}).select("-password -token -__v");
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
     }
@@ -113,10 +113,10 @@ exports.getAllClass = asyncHandler(async (req, res, next) => {
  */
 exports.updateClassByID = asyncHandler(async (req, res, next) => {
     delete req.body.token;
-    const class_room = await Classes.findOneAndUpdate({ idClass: req.body.idClass }, req.body);
+    const class_room = await Classes.findOneAndUpdate({ codeClass: req.body.codeClass }, req.body);
     
     if (!class_room) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${req.body.idClass}`, 404)); 
+        return next(new ErrorResponse(`Teacher not found with id of ${req.body.codeClass}`, 404)); 
     }
 
     res.status(200).json({ success: true, data: class_room });
@@ -126,10 +126,10 @@ exports.updateClassByID = asyncHandler(async (req, res, next) => {
  * @desc    Delete class by ID
  */
 exports.deleteClassByID = asyncHandler(async (req, res, next) => {
-    const class_room = await Classes.findOneAndDelete({ idClass: req.body.idClass });
+    const class_room = await Classes.findOneAndDelete({ codeClass: req.body.codeClass });
     
     if (!class_room) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${req.body.idClass}`, 404)); 
+        return next(new ErrorResponse(`Teacher not found with id of ${req.body.codeClass}`, 404)); 
     }
 
     res.status(200).json({ success: true });
@@ -140,9 +140,9 @@ exports.deleteClassByID = asyncHandler(async (req, res, next) => {
  */
 exports.addTeacherToClassByID = asyncHandler(async (req, res, next) => {
 	var { idClass } = req.params
-    const classroom = await Classes.findOne({idClass}).select("-password -token -__v");
+    const classroom = await Classes.findOne({codeClass: idClass}).select("-password -token -__v");
     if (!classroom) { 
-        return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
+        return next(new ErrorResponse(`Classroom not found with id of ${codeClass}`, 404)); 
     }
     req.body.list_teacher.each(function (data) {
         classroom.teachers.push(data);
@@ -156,7 +156,7 @@ exports.addTeacherToClassByID = asyncHandler(async (req, res, next) => {
  */
 exports.addStudentToClassByID = asyncHandler(async (req, res, next) => {
 	var { idClass } = req.params
-    const classroom = await Classes.findOne({idClass}).select("-password -token -__v");
+    const classroom = await Classes.findOne({codeClass: idClass}).select("-password -token -__v");
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
     }
@@ -172,7 +172,7 @@ exports.addStudentToClassByID = asyncHandler(async (req, res, next) => {
  */
 exports.addAssginmentsToClassByID = asyncHandler(async (req, res, next) => {
 	var { idClass } = req.params
-    const classroom = await Classes.findOne({idClass}).select("-password -token -__v");
+    const classroom = await Classes.findOne({codeClass: idClass}).select("-password -token -__v");
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
     }
