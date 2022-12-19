@@ -24,7 +24,7 @@ exports.getStudentsOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
     // const class_room = await Classes.create(req.body);
-    const classroom = await Classes.find({idClass})
+    const classroom = await Classes.find({codeClass: idClass})
                             .populate({
                                 path: "listStudent",
                                 populate: { path: "listStudent" , 
@@ -45,7 +45,7 @@ exports.getAssignmentsOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
     // const class_room = await Classes.create(req.body);
-    const classroom = await Classes.find({idClass})
+    const classroom = await Classes.find({codeClass: idClass})
                             .populate({
                                 path: "assignments",
                                 populate: { path: "assignments" , 
@@ -66,7 +66,7 @@ exports.getTeachersOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
     // const class_room = await Classes.create(req.body);
-    const classroom = await Classes.find({idClass})
+    const classroom = await Classes.find({codeClass: idClass})
                             .populate({
                                 path: "teachers",
                                 populate: { path: "teachers" , 
