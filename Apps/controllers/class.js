@@ -73,6 +73,8 @@ exports.getTeachersOfClassByID = asyncHandler(async (req, res, next) => {
                                             select: 'idTeacher fullname '},
                             });
 
+    console.log(classroom);
+
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom create error`, 404)); 
     }
