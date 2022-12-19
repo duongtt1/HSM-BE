@@ -66,8 +66,10 @@ exports.getTeachersOfClassByID = asyncHandler(async (req, res, next) => {
     const classroom = await Classes.find({codeClass: idClass})
                             .populate({
                                 path: "teachers",
-                                populate: { path: "teachers" , 
-                                            select: 'idTeacher fullname '},
+                                populate: { 
+                                    path: "teachers" , 
+                                    select: 'idTeacher fullname'
+                                },
                             });
 
     console.log(classroom);
