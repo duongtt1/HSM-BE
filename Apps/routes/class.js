@@ -23,7 +23,6 @@ router.route("/id/:idClass")
     .get(protect, getClassByID)
     .delete(protect, deleteClassByID)
     .put(protect, updateClassByID)
-    .post(protect, createClass);
 
 router.route("/getall").get(protect, getAllClass);
 router.route("/student/:idClass")

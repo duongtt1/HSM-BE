@@ -113,10 +113,10 @@ exports.getAllClass = asyncHandler(async (req, res, next) => {
  */
 exports.updateClassByID = asyncHandler(async (req, res, next) => {
     delete req.body.token;
-    const class_room = await Classes.findOneAndUpdate({ codeClass: req.body.codeClass }, req.body);
+    const class_room = await Classes.findOneAndUpdate({ codeClass: req.params.codeClass }, req.body);
     
     if (!class_room) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${req.body.codeClass}`, 404)); 
+        return next(new ErrorResponse(`Class not found with id of ${req.params.codeClass}`, 404)); 
     }
 
     res.status(200).json({ success: true, data: class_room });
@@ -126,10 +126,10 @@ exports.updateClassByID = asyncHandler(async (req, res, next) => {
  * @desc    Delete class by ID
  */
 exports.deleteClassByID = asyncHandler(async (req, res, next) => {
-    const class_room = await Classes.findOneAndDelete({ codeClass: req.body.codeClass });
+    const class_room = await Classes.findOneAndDelete({ codeClass: req.params.codeClass });
     
     if (!class_room) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${req.body.codeClass}`, 404)); 
+        return next(new ErrorResponse(`Teacher not found with id of ${req.params.codeClass}`, 404)); 
     }
 
     res.status(200).json({ success: true });
