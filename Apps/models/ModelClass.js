@@ -17,16 +17,16 @@ var ModelClass = new Schema({
     documents: [{ type: String }],
     assignments: [{ 
         type: Schema.Types.ObjectId, 
-        ref: "AssignmentModel" }],
+        ref: "ModelAssignment" }],
     subject: { 
         type: Schema.Types.ObjectId, 
         // required: true, 
-        ref: "SubjectModel" 
+        ref: "ModelSubject" 
     },
     teachers: [{ 
         type: Schema.Types.ObjectId, 
         // required: true, 
-        ref: "TeacherModel" 
+        ref: "ModelTeacher" 
     }],
 });
 

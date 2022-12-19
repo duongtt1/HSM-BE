@@ -23,14 +23,13 @@ exports.createClass = asyncHandler(async (req, res, next) => {
 exports.getStudentsOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
-    // const class_room = await Classes.create(req.body);
     const classroom = await Classes.find({codeClass: idClass})
                             .populate({
                                 path: "listStudent",
                                 populate: { path: "listStudent" , 
                                             select: 'idStudent fullname gender'},
                             });
-
+    console.log(classroom);
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom create error`, 404)); 
     }
@@ -44,7 +43,6 @@ exports.getStudentsOfClassByID = asyncHandler(async (req, res, next) => {
 exports.getAssignmentsOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
-    // const class_room = await Classes.create(req.body);
     const classroom = await Classes.find({codeClass: idClass})
                             .populate({
                                 path: "assignments",
@@ -65,7 +63,6 @@ exports.getAssignmentsOfClassByID = asyncHandler(async (req, res, next) => {
 exports.getTeachersOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
-    // const class_room = await Classes.create(req.body);
     const classroom = await Classes.find({codeClass: idClass})
                             .populate({
                                 path: "teachers",
