@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var ModelAssignment = new Schema({
+var AssignmentSchema = new Schema({
     class: [{ 
         type: Schema.Types.ObjectId, 
         ref: "ModelClass" 
@@ -16,4 +16,4 @@ var ModelAssignment = new Schema({
     quiz: [{}],
 });
 
-module.exports = mongoose.model("ModelAssignment", ModelAssignment);
+module.exports = mongoose.model("ModelAssignment", AssignmentSchema);

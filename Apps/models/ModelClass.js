@@ -2,32 +2,33 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var ModelClass = new Schema({
-    listStudent: [{ 
-        type: Schema.Types.ObjectId, 
+var SchemaClass = new Schema({
+    listStudent: [{
+        type: Schema.Types.ObjectId,
         // required: true, 
-        ref: "ModelStudent" 
+        ref: "ModelStudent"
     }],
-    nameClass: { 
-        type: String 
+    nameClass: {
+        type: String
     },
-    codeClass: { 
-        type: String 
+    codeClass: {
+        type: String
     },
     documents: [{ type: String }],
-    assignments: [{ 
-        type: Schema.Types.ObjectId, 
-        ref: "ModelAssignment" }],
-    subject: { 
-        type: Schema.Types.ObjectId, 
+    assignments: [{
+        type: Schema.Types.ObjectId,
+        ref: "ModelAssignment"
+    }],
+    subject: {
+        type: Schema.Types.ObjectId,
         // required: true, 
-        ref: "ModelSubject" 
+        ref: "ModelSubject"
     },
-    teachers: [{ 
-        type: Schema.Types.ObjectId, 
+    teachers: [{
+        type: Schema.Types.ObjectId,
         // required: true, 
-        ref: "ModelTeacher" 
+        ref: "ModelTeacher"
     }],
 });
 
-module.exports = mongoose.model("ModelClass", ModelClass);
+module.exports = mongoose.model("ModelClass", SchemaClass);

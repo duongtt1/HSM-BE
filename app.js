@@ -18,6 +18,9 @@ const DBConnection = require("./Apps/config/db");
 
 DBConnection();
 
+require('./Apps/models/ModelAssignment');
+// require('./models/Comments');
+
 // Routes
 const authRoutes = require("./Apps/routes/auth")
 const studentRoutes = require("./Apps/routes/student")

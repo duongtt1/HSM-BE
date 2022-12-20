@@ -23,11 +23,11 @@ exports.createClass = asyncHandler(async (req, res, next) => {
 exports.getStudentsOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
-    const classroom = await Classes.find({codeClass: idClass})
+    const classroom = await Classes.findOne({codeClass: idClass})
                             .populate({
-                                path: "listStudent",
-                                populate: { path: "listStudent" , 
-                                            select: 'idStudent fullname gender'},
+                                path: 'listStudent',
+                                select: '-password -token -__v',
+                                populate: { path: 'listStudent'}
                             });
     console.log(classroom);
     if (!classroom) { 
@@ -43,12 +43,11 @@ exports.getStudentsOfClassByID = asyncHandler(async (req, res, next) => {
 exports.getAssignmentsOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
-    const classroom = await Classes.find({codeClass: idClass})
-                            .populate({
-                                path: "assignments",
-                                populate: { path: "assignments" , 
-                                            select: 'name idAssign quiz'},
-                            });
+    const classroom = await Classes.findOne({codeClass: idClass})
+                                .populate({
+                                    path: 'assignments',
+                                    populate: { path: 'assignments'}
+                                });
 
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom create error`, 404)); 
@@ -63,22 +62,18 @@ exports.getAssignmentsOfClassByID = asyncHandler(async (req, res, next) => {
 exports.getTeachersOfClassByID = asyncHandler(async (req, res, next) => {
     var { idClass } = req.params
 
-    const classroom = await Classes.find({codeClass: idClass})
+    const classroom = await Classes.findOne({codeClass: idClass})
                             .populate({
-                                path: "teachers",
-                                populate: { 
-                                    path: "teachers" , 
-                                    select: 'idTeacher fullname'
-                                },
+                                path: 'teachers',
+                                select: '-password -token -__v',
+                                populate: { path: 'teachers'}
                             });
-
-    console.log(classroom);
 
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom create error`, 404)); 
     }
 
-    res.status(200).json({ success: true, data: classroom.assignments });
+    res.status(200).json({ success: true, data: classroom.teachers });
 });
 
 
@@ -145,7 +140,7 @@ exports.addTeacherToClassByID = asyncHandler(async (req, res, next) => {
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom not found with id of ${codeClass}`, 404)); 
     }
-    req.body.list_teacher.each(function (data) {
+    req.body.list_teacher.forEach(function (data) {
         classroom.teachers.push(data);
     });
     classroom.save();
@@ -161,7 +156,7 @@ exports.addStudentToClassByID = asyncHandler(async (req, res, next) => {
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
     }
-    req.body.list_students.each(function (data) {
+    req.body.list_students.forEach(function (data) {
         classroom.listStudent.push(data);
     });
     classroom.save();
@@ -177,7 +172,9 @@ exports.addAssginmentsToClassByID = asyncHandler(async (req, res, next) => {
     if (!classroom) { 
         return next(new ErrorResponse(`Classroom not found with id of ${idClass}`, 404)); 
     }
-    classroom.listStudent.push(req.body.assignment);
+    req.body.list_assigns.forEach(function (data) {
+        classroom.assignments.push(data);
+    });
     classroom.save();
     res.status(200).json({ success: true, data: classroom });
 });
