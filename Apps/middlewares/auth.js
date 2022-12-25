@@ -8,8 +8,8 @@ const Teachers = require("../models/ModelTeacher");
 const Admins = require("../models/ModelAdministrator");
 
 exports.protect = asyncHandler(async (req, res, next) => {
-	let token = req.body.token;
-	console.log(req.body);
+	let token = req.headers.token;
+	
 	if (!token) {
 		return next(new ErrorResponse("Denied", 401));
 	}
