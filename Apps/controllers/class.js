@@ -178,3 +178,69 @@ exports.addAssginmentsToClassByID = asyncHandler(async (req, res, next) => {
     classroom.save();
     res.status(200).json({ success: true, data: classroom });
 });
+
+exports.getClassTodayByIdTeacher = asyncHandler(async (req, res, next) => {
+	data = [
+            {
+                "nameClass": "IT001.MTCL.1",
+                "nameTeacher": "VanNN",
+                "fullnameTeacher": "Nguyễn Ngọc Vân",
+                "linkAvatarClass": "../Resources/icon/webinar.png",
+                "listStudents": [
+                {
+                    "unreadNotification": false,
+                    "role": "student",
+                    "_id": "6366218eed65a82a8ca4d76c",
+                    "codeuser": "DuongTT",
+                    "username": "18520651",
+                    "password": "18520651",
+                    "full_name": "Từ Thanh Dương",
+                    "email": "18520651@gm.uit.edu.vn",
+                    "day_of_birth": "2000-02-09T00:00:00.000Z",
+                    "gender": "Nam",
+                    "ic_number": "231384748",
+                    "telephone": "0333480209",
+                    "class": "MTCL2018.1",
+                    "country": "Gia Lai",
+                    "uni": "UIT-VNUHCM",
+                    "avatar": "https://pbs.twimg.com/media/D8S9Pt6XoAAPbsR?format=png&name=small",
+                    "createdAt": "2022-11-05T08:40:46.082Z",
+                    "updatedAt": "2022-11-05T08:40:46.082Z",
+                    "__v": 0
+                }
+                ],
+                "hided": false
+            },
+            {
+                "nameClass": "SE213.PMCL",
+                "nameTeacher": "VanNN",
+                "fullnameTeacher": "Nguyễn Ngọc Vân",
+                "linkAvatarClass": "../Resources/icon/webinar.png",
+                "listStudents": [
+                {
+                    "unreadNotification": false,
+                    "role": "student",
+                    "_id": "6366218eed65a82a8ca4d76c",
+                    "codeuser": "DuongTT",
+                    "username": "18520651",
+                    "password": "18520651",
+                    "full_name": "Từ Thanh Dương",
+                    "email": "18520651@gm.uit.edu.vn",
+                    "day_of_birth": "2000-02-09T00:00:00.000Z",
+                    "gender": "Nam",
+                    "ic_number": "231384748",
+                    "telephone": "0333480209",
+                    "class": "MTCL2018.1",
+                    "country": "Gia Lai",
+                    "uni": "UIT-VNUHCM",
+                    "avatar": "https://pbs.twimg.com/media/D8S9Pt6XoAAPbsR?format=png&name=small",
+                    "createdAt": "2022-11-05T08:40:46.082Z",
+                    "updatedAt": "2022-11-05T08:40:46.082Z",
+                    "__v": 0
+                }
+                ],
+                "hided": true
+            }
+        ]
+    res.status(200).json({ success: true, data: data });
+});

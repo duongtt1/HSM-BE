@@ -28,6 +28,8 @@ const teacherRoutes = require("./Apps/routes/teacher")
 const adminRoutes = require("./Apps/routes/admin")
 const classRoutes = require("./Apps/routes/class")
 const subjectRoutes = require("./Apps/routes/subject")
+const bootingRoutes = require("./Apps/routes/booting")
+const scheduleRoutes = require("./Apps/routes/schedule")
 
 // init Epress App
 const app = express();
@@ -62,6 +64,8 @@ app.use(versionOne("teachers"), teacherRoutes);
 app.use(versionOne("admins"), adminRoutes);
 app.use(versionOne("classes"), classRoutes);
 app.use(versionOne("subjects"), subjectRoutes);
+app.use(versionOne("booting"), bootingRoutes);
+app.use(versionOne("schedule"), scheduleRoutes);
 
 app.use(errorHandler);
 

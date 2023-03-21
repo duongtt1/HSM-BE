@@ -11,7 +11,7 @@ const {
 } = require("../controllers/teacher");
 
 router.route("/:idTeacher")
-    .get(protect, getTeacherByID)
+    .get(getTeacherByID)
     .delete(protect, authorize("admin"), deleteTeacherByID)
     .put(protect, authorize("admin"), updateTeacherByID);
 

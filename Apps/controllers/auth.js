@@ -42,6 +42,7 @@ exports.register = asyncHandler(async (req, res, next) => {
  */
 exports.login = asyncHandler(async (req, res, next) => {
 	var { username, password } = req.body;
+	// console.log(req.body)
 	if (!username || !password) {
 		return next(new ErrorResponse("Please provide an email and password", 400));
 	}

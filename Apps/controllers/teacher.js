@@ -10,9 +10,21 @@ const Teachers = require("../models/ModelTeacher");
 exports.getTeacherByID = asyncHandler(async (req, res, next) => {
 	var { idTeacher } = req.params
 
-    const teacher = await Teachers.findOne({idTeacher}).select("-password -token -__v");
-    if (!teacher) { 
-        return next(new ErrorResponse(`Teacher not found with id of ${idTeacher}`, 404)); 
+    // const teacher = await Teachers.findOne({idTeacher}).select("-password -token -__v");
+    // if (!teacher) { 
+    //     return next(new ErrorResponse(`Teacher not found with id of ${idTeacher}`, 404)); 
+    // }
+
+    teacher = {
+        "idCard":"18520651",
+        "fullname":"Tu Thanh Duong",
+        "email":"18520651@gm.uit.edu.vn",
+        "phoneNumber":"0333480209",
+        "dayOfBirth":"1999-03-14T13:30:00.000+00:00",
+        "country":"Viet Nam",
+        "university":"UIT",
+        "school":"UIT",
+        "linkToFB":"https://www.facebook.com/duongtt.uit"
     }
 
     res.status(200).json({ success: true, data: teacher });
