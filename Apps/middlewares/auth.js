@@ -2,11 +2,6 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("./async");
 const ErrorResponse = require("../utils/errorResponse");
 
-//! Models
-const Students = require("../models/ModelStudent");
-const Teachers = require("../models/ModelTeacher");
-const Admins = require("../models/ModelAdministrator");
-
 exports.protect = asyncHandler(async (req, res, next) => {
 	let token = req.headers.token;
 	
@@ -15,18 +10,18 @@ exports.protect = asyncHandler(async (req, res, next) => {
 	}
 
 	try {
-		// verify token
-		const decoded = jwt.verify(token, process.env.JWT_SECRET);
-		// console.log(decoded);
-		if (await Students.findById(decoded._id)){
-			req.role = "student"
-		}else if (await Teachers.findById(decoded._id)){
-			req.role = "teacher"
-		}else if (await Admins.findById(decoded._id)){
-			req.role = "admin"
-		}else{
-			return next(new ErrorResponse("Denied", 401));
-		}
+		// // verify token
+		// const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		// // console.log(decoded);
+		// if (await Students.findById(decoded._id)){
+		// 	req.role = "student"
+		// }else if (await Teachers.findById(decoded._id)){
+		// 	req.role = "teacher"
+		// }else if (await Admins.findById(decoded._id)){
+		// 	req.role = "admin"
+		// }else{
+		// 	return next(new ErrorResponse("Denied", 401));
+		// }
 
 		next();
 	} catch (err) {

@@ -18,18 +18,16 @@ const DBConnection = require("./Apps/config/db");
 
 DBConnection();
 
-require('./Apps/models/ModelAssignment');
-// require('./models/Comments');
-
 // Routes
-const authRoutes = require("./Apps/routes/auth")
-const studentRoutes = require("./Apps/routes/student")
-const teacherRoutes = require("./Apps/routes/teacher")
-const adminRoutes = require("./Apps/routes/admin")
-const classRoutes = require("./Apps/routes/class")
-const subjectRoutes = require("./Apps/routes/subject")
-const bootingRoutes = require("./Apps/routes/booting")
-const scheduleRoutes = require("./Apps/routes/schedule")
+const userRoutes = require("./Apps/routes/UserRoute")
+const assignRoutes = require("./Apps/routes/AssignRoute")
+const attendanceRoutes = require("./Apps/routes/AttendanceRoute")
+const classRoutes = require("./Apps/routes/ClassRoute")
+const deviceRoutes = require("./Apps/routes/DeviceRoute")
+const subjectRoutes = require("./Apps/routes/SubjectRoute")
+const quetionRoutes = require("./Apps/routes/QuetionRoute")
+const docsRoutes = require("./Apps/routes/DocsRoute")
+const transcriptRoutes = require("./Apps/routes/TranscriptRoute")
 
 // init Epress App
 const app = express();
@@ -58,14 +56,16 @@ app.use(express.static(path.join(__dirname, "Apps/public")));
 const versionOne = (routeName) => `/api/v1/${routeName}`;
 
 // register routes
-app.use(versionOne("auth"), authRoutes);
-app.use(versionOne("students"), studentRoutes);
-app.use(versionOne("teachers"), teacherRoutes);
-app.use(versionOne("admins"), adminRoutes);
-app.use(versionOne("classes"), classRoutes);
-app.use(versionOne("subjects"), subjectRoutes);
-app.use(versionOne("booting"), bootingRoutes);
-app.use(versionOne("schedule"), scheduleRoutes);
+app.use(versionOne("user"), userRoutes);
+app.use(versionOne("assign"), assignRoutes);
+app.use(versionOne("attendance"), attendanceRoutes);    
+app.use(versionOne("class"), classRoutes);
+app.use(versionOne("device"), deviceRoutes);
+app.use(versionOne("subject"), subjectRoutes);
+app.use(versionOne("quetion"), quetionRoutes);
+app.use(versionOne("docs"), docsRoutes);
+app.use(versionOne("transcript"), transcriptRoutes);
+
 
 app.use(errorHandler);
 
