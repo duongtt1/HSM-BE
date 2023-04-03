@@ -28,6 +28,7 @@ const subjectRoutes = require("./Apps/routes/SubjectRoute")
 const quetionRoutes = require("./Apps/routes/QuetionRoute")
 const docsRoutes = require("./Apps/routes/DocsRoute")
 const transcriptRoutes = require("./Apps/routes/TranscriptRoute")
+const notiRoutes = require("./Apps/routes/NotiRoute")
 
 // init Epress App
 const app = express();
@@ -65,7 +66,7 @@ app.use(versionOne("subject"), subjectRoutes);
 app.use(versionOne("quetion"), quetionRoutes);
 app.use(versionOne("docs"), docsRoutes);
 app.use(versionOne("transcript"), transcriptRoutes);
-
+app.use(versionOne("notifications"), notiRoutes);
 
 app.use(errorHandler);
 
