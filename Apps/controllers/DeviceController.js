@@ -22,7 +22,7 @@ exports.createDevice = asyncHandler(async (req, res, next) => {
 
 exports.getAllDevice = asyncHandler(async (req, res, next) => {
     try {
-        const device = await DeviceModel.find();
+        const device = await DeviceModel.find().populate('room');
         res.status(200).json({
             success: true,
             data: device
@@ -52,7 +52,7 @@ exports.updateDevice = asyncHandler(async (req, res, next) => {
     }
     try {
         await DeviceModel.updateOne({ _id: res.device._id }, { $set: updateFields });
-        const updatedDevice = await DeviceModel.findById(res.device._id);
+        const updatedDevice = await DeviceModel.findById(res.device._id).populate('room');;
         res.status(200).json({ success: true, data: updatedDevice });
     } catch (err) {
         res.status(400).json({ success: false, data: err.message });
@@ -63,7 +63,7 @@ exports.updateDevice = asyncHandler(async (req, res, next) => {
 exports.getDeviceMdw = asyncHandler(async (req, res, next) => {
     let device;
     try {
-        device = await DeviceModel.findById(req.params.id);
+        device = await DeviceModel.findById(req.params.id).populate('room');;
         if (device == null) {
             return res.status(404).json({ success: false, message: 'Cannot find device' });
         }

@@ -2,13 +2,13 @@ const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 
 //! Models
-const AssignModel = require("../models/AssignModel");
+const ClassRoomModel = require("../models/ClassRoomModel");
 
-exports.createAssign = asyncHandler(async (req, res, next) => {
+exports.createClassroom = asyncHandler(async (req, res, next) => {
     try {
-        const newAssign = new AssignModel(req.body);
-        const savedAssign = await newAssign.save();
-        if (savedAssign == null ){
+        const newClassroom = new ClassRoomModel(req.body);
+        const savedClassroom = await newClassroom.save();
+        if (savedClassroom == null ){
             res.status(400).json({ success: false, message: err.message });
         }else{
             res.status(200).json({
@@ -20,57 +20,57 @@ exports.createAssign = asyncHandler(async (req, res, next) => {
     }
 });
 
-exports.getAllAssign = asyncHandler(async (req, res, next) => {
+exports.getAllClassroom = asyncHandler(async (req, res, next) => {
     try {
-        const assigns = await AssignModel.find().populate('quetions');
+        const cr = await ClassRoomModel.find();
         res.status(200).json({
             success: true,
-            data: assigns
+            data: cr
         });
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
     }
 });
 
-exports.deleteAssign = asyncHandler(async (req, res, next) => {
+exports.deleteClassroom = asyncHandler(async (req, res, next) => {
     try {
-        await res.assign.remove();
+        await res.cr.remove();
         res.json({ success: true, message: 'Deleted user' });
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
 });
 
-exports.getAssign = asyncHandler(async (req, res, next) => {
-    res.status(200).json({ success: true, data: res.assign });
+exports.getClassroom = asyncHandler(async (req, res, next) => {
+    res.status(200).json({ success: true, data: res.cr });
 });
 
-exports.updateAssign = asyncHandler(async (req, res, next) => {
+exports.updateClassroom = asyncHandler(async (req, res, next) => {
     const updateFields = {};
     for (const [key, value] of Object.entries(req.body)) {
         updateFields[key] = value;
     }
     try {
-        await AssignModel.updateOne({ _id: res.assign._id }, { $set: updateFields });
-        const updatedAssign = await AssignModel.findById(res.assign._id).populate('quetions');;
-        res.status(200).json({ success: true, data: updatedAssign });
+        await ClassRoomModel.updateOne({ _id: res.cr._id }, { $set: updateFields });
+        const updatedClassroom = await ClassRoomModel.findById(res.cr._id);
+        res.status(200).json({ success: true, data: updatedClassroom });
     } catch (err) {
         res.status(400).json({ success: false, data: err.message });
     }
 });
 
 // Middleware function to get a single user by ID
-exports.getAssignMdw = asyncHandler(async (req, res, next) => {
-    let assign;
+exports.getClassroomMdw = asyncHandler(async (req, res, next) => {
+    let cr;
     try {
-        assign = await AssignModel.findById(req.params.id).populate('quetions');
-        if (assign == null) {
+        cr = await ClassRoomModel.findById(req.params.id);
+        if (cr == null) {
             return res.status(404).json({ success: false, message: 'Cannot find user' });
         }
     } catch (err) {
         return res.status(500).json({ success: false, message: 'Cannot find user' });
     }
-    res.assign = assign;
+    res.cr = cr;
     next();
 });
 

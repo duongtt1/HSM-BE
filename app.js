@@ -18,6 +18,19 @@ const DBConnection = require("./Apps/config/db");
 
 DBConnection();
 
+//require DB
+require("./Apps/models/UserModel");
+require("./Apps/models/AssignModel");
+require("./Apps/models/AttendanceModel");
+require("./Apps/models/ClassModel");
+require("./Apps/models/DeviceModel");
+require("./Apps/models/SubjectModel");
+require("./Apps/models/QuetionModel");
+require("./Apps/models/DocsModel");
+require("./Apps/models/TranscriptModel");
+require("./Apps/models/NotiModel");
+require("./Apps/models/ClassRoomModel");
+
 // Routes
 const userRoutes = require("./Apps/routes/UserRoute")
 const assignRoutes = require("./Apps/routes/AssignRoute")
