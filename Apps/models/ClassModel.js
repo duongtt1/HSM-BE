@@ -2,23 +2,23 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ClassModel = new Schema({
-	nameClass: { 
-		type: String 
+	nameClass: {
+		type: String
 	},
-	classID: { 
-		type: String 
+	classID: {
+		type: String
 	},
-	members: [{ 
-		type: Schema.Types.ObjectId, 
-		ref: "UserModel" 
+	members: [{
+		type: Schema.Types.ObjectId,
+		ref: "UserModel"
 	}],
-	docs: [{ 
-		type: Schema.Types.ObjectId, 
-		ref: "DocsModel" 
+	docs: [{
+		type: Schema.Types.ObjectId,
+		ref: "DocsModel"
 	}],
-	assigns: [{ 
-		type: Schema.Types.ObjectId, 
-		ref: "AssignModel" 
+	assigns: [{
+		type: Schema.Types.ObjectId,
+		ref: "AssignModel"
 	}],
 	room: {
 		type: Schema.Types.ObjectId,
@@ -29,6 +29,19 @@ var ClassModel = new Schema({
 		type: Schema.Types.ObjectId,
 		// required: true,
 		ref: "SubjectModel",
+	},
+	teacher: {
+		type: Schema.Types.ObjectId,
+		// required: true,
+		ref: "UserModel",
+	},
+	startTime: {
+		type: Number,
+		// required: true,
+	},
+	endTime: {
+		type: Number,
+		// required: true,
 	},
 });
 

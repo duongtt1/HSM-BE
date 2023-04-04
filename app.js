@@ -42,6 +42,9 @@ const quetionRoutes = require("./Apps/routes/QuetionRoute")
 const docsRoutes = require("./Apps/routes/DocsRoute")
 const transcriptRoutes = require("./Apps/routes/TranscriptRoute")
 const notiRoutes = require("./Apps/routes/NotiRoute")
+const classroomRoutes = require("./Apps/routes/ClassroomRoute")
+const bootingRoutes = require("./Apps/routes/BootingRoute");
+const ScheduleRoutes = require("./Apps/routes/ScheduleRoute");
 
 // init Epress App
 const app = express();
@@ -72,7 +75,7 @@ const versionOne = (routeName) => `/api/v1/${routeName}`;
 // register routes
 app.use(versionOne("user"), userRoutes);
 app.use(versionOne("assign"), assignRoutes);
-app.use(versionOne("attendance"), attendanceRoutes);    
+app.use(versionOne("attendance"), attendanceRoutes);
 app.use(versionOne("class"), classRoutes);
 app.use(versionOne("device"), deviceRoutes);
 app.use(versionOne("subject"), subjectRoutes);
@@ -80,6 +83,9 @@ app.use(versionOne("quetion"), quetionRoutes);
 app.use(versionOne("docs"), docsRoutes);
 app.use(versionOne("transcript"), transcriptRoutes);
 app.use(versionOne("notifications"), notiRoutes);
+app.use(versionOne("classroom"), classroomRoutes);
+app.use(versionOne("booting"), bootingRoutes);
+app.use(versionOne("schedule"), ScheduleRoutes);
 
 app.use(errorHandler);
 
