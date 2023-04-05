@@ -2,30 +2,43 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var UserModel = new Schema({
-	username: { 
-		type: String 
+	username: {
+		type: String
 	},
 	password: {
-		type: String 
+		type: String
 	},
-	fullname: { 
-		type: String 
+	fullname: {
+		type: String
 	},
-	school: { 
-		type: String 
+	school: {
+		type: String
 	},
-	class: [{ 
-		type: String 
+	class: [{
+		type: String
 	}],
-	role: { 
-		type: String 
+	role: {
+		type: String
 	},
-	faces: [{ 
-		type: String 
+	faces: [{
+		type: String
 	}],
-	userID: { 
-		type: String, 
-		required: true 
+	userID: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	phoneNumber: {
+		type: String
+	},
+	email: {
+		type: String
+	},
+	dayOfBirth: {
+		type: Date
+	},
+	role: {
+		type: String
 	},
 });
 

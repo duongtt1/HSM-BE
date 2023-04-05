@@ -31,6 +31,34 @@ exports.getInfoRoomFromIdDevice = asyncHandler(async (req, res, next) => {
         //     ]
         // }]
 
+
+        // {
+        //     "success": true,
+        //     "data": [
+        //         {
+        //             "idSubject": "PH001",
+        //             "nameSubject": "Nhap mon mach so",
+        //             "idTeacher": "642323a2ef77c23b9f2ea4d8",
+        //             "nameTeacher": "Tu Thanh Duong",
+        //             "idClass": "642bc4435a02f5505a8579d5",
+        //             "nameClass": "KTMT0001",
+        //             "idRoom": "642b98d69ef42a20bf21292b",
+        //             "nameRoom": "E21",
+        //             "startTime": "2023-04-04T13:30:00.000Z",
+        //             "endTime": "2023-04-04T17:30:00.000Z",
+        //             "imgurl": [
+        //                 "https://ik.imagekit.io/duongtt/smartclass/18520651_1.jpg",
+        //                 "https://ik.imagekit.io/duongtt/smartclass/18520651_2.jpg",
+        //                 "https://ik.imagekit.io/duongtt/smartclass/18520651_5.jpg",
+        //                 "https://ik.imagekit.io/duongtt/smartclass/18520651_6.jpg",
+        //                 "https://ik.imagekit.io/duongtt/smartclass/18520651_3.jpg",
+        //                 "https://ik.imagekit.io/duongtt/smartclass/18520651_4.jpg",
+        //                 "https://ik.imagekit.io/duongtt/smartclass/18520651_7.jpg"
+        //             ]
+        //         }
+        //     ]
+        // }
+
         const idDevice = req.params.id;
 
         let cr = await DeviceModel.findById(idDevice).populate("room")

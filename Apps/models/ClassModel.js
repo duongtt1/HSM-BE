@@ -43,6 +43,9 @@ var ClassModel = new Schema({
 		type: Number,
 		// required: true,
 	},
+	status: {
+		type: String,
+	}
 });
 
 module.exports = mongoose.model("ClassModel", ClassModel);
