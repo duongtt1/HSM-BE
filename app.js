@@ -45,6 +45,7 @@ const notiRoutes = require("./Apps/routes/NotiRoute")
 const classroomRoutes = require("./Apps/routes/ClassroomRoute")
 const bootingRoutes = require("./Apps/routes/BootingRoute");
 const ScheduleRoutes = require("./Apps/routes/ScheduleRoute");
+const authRoutes = require("./Apps/routes/AuthRoute");
 
 // init Epress App
 const app = express();
@@ -86,6 +87,7 @@ app.use(versionOne("notifications"), notiRoutes);
 app.use(versionOne("classroom"), classroomRoutes);
 app.use(versionOne("booting"), bootingRoutes);
 app.use(versionOne("schedule"), ScheduleRoutes);
+app.use(versionOne("auth"), authRoutes);
 
 app.use(errorHandler);
 

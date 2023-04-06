@@ -7,12 +7,10 @@ var NotiModel = new Schema({
 		// required: true, 
 		ref: "UserModel" 
 	},
-	unread: [{
-        type: String,
+    noti: [{
+        type: Object
     }],
-    readed: [{
-    type: String,
-    }],
+	
 }, { timestamps: true });
 
 module.exports = mongoose.model("NotiModel", NotiModel);
