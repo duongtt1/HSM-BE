@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const http = require('http')
 require("colors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -12,7 +13,6 @@ const hpp = require("hpp");
 const cors = require("cors");
 // const multer = require("multer");
 const socket = require("socket.io");
-
 const errorHandler = require("./Apps/middlewares/error");
 const DBConnection = require("./Apps/config/db");
 
@@ -93,9 +93,48 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT;
 
-const server = app.listen(PORT, () => {
+const server = http.createServer(app);
+const io = socket(server);
+
+// socketio
+const { verifyToken } = require("./Apps/Socket/middleware/auth")(io);
+const { handleDisconnect } = require("./Apps/Socket/room/commom")(io);
+
+io.use(verifyToken);
+
+const onConnection = (socket) => {
+    console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
+    socket.join(socket.room);
+    socket.emit("ping", "pong");
+
+    socket.on("ping", (data) => {
+        console.log(`topic: ping recveied data: ${data}`);
+    });
+
+    socket.on("test", (data) => {
+        console.log(`topic: test recveied data: ${data}`);
+        socket.emit("test", "date");
+    });
+
+    // for (const [key, value] of Object.entries(socket.topics)) {
+    //     console.log(`Client with id: ${socket.deviceId} subscribe to topic: ${value}`.yellow.bold);
+    //     socket.on(value, (data) => {
+    //             console.log(`topic: ${value} recveied data: ${data}`);
+    //             // io.to(socket.room).emit(value, data);
+    //         }
+    //     );
+    // }
+    socket.on("disconnect", handleDisconnect);
+}
+
+io.on("connection", onConnection);
+
+const serverProcess = server.listen(PORT, () => {
     console.log(
         `Server is running ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+    );
+    console.log(
+        `Socket Server is running ${process.env.NODE_ENV}:${PORT}`.blue.bold
     );
 });
 
@@ -103,5 +142,5 @@ const server = app.listen(PORT, () => {
 process.on("unhandledRejection", (err, promise) => {
     console.log(`Error: ${err.message}`.red);
     // Close server & exit process
-    server.close(() => process.exit(1));
+    serverProcess.close(() => process.exit(1));
 });
