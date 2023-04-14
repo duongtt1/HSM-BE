@@ -106,6 +106,7 @@ const onConnection = (socket) => {
     console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
     socket.join(socket.room);
     socket.emit("ping", "pong");
+    socket.emit("test2", "test");
 
     socket.on("ping", (data) => {
         console.log(`topic: ping recveied data: ${data}`);
@@ -113,7 +114,8 @@ const onConnection = (socket) => {
 
     socket.on("test", (data) => {
         console.log(`topic: test recveied data: ${data}`);
-        socket.emit("test", "date");
+        io.emit("test2", data);
+        console.log(`topic: test2 sent data: ${data}`);
     });
 
     // for (const [key, value] of Object.entries(socket.topics)) {
