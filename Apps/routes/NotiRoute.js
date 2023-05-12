@@ -9,7 +9,8 @@ const {
     deleteNoti,
     getNoti,
     getNotiMdw,
-    updateNoti
+    updateNoti,
+    updateReadedAllNoti
 } = require("../controllers/NotiController");
 
 router.route("/").post(createNoti).get(getAllNoti);
@@ -17,5 +18,6 @@ router.get('/:id', getNotiMdw, getNoti)
 router.delete('/:id', getNotiMdw, deleteNoti)
 
 router.put('/:id', getNotiMdw, updateNoti);
+router.put('/readed/:id', updateReadedAllNoti);
 
 module.exports = router;

@@ -59,7 +59,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 exports.getUserMdw = asyncHandler(async (req, res, next) => {
     let user;
     try {
-        user = await UserModel.findById(req.params.id);
+        user = await UserModel.findOne({ username: req.params.id });
         if (user == null) {
             return res.status(404).json({ success: false, message: 'Cannot find user' });
         }

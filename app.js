@@ -104,18 +104,10 @@ io.use(verifyToken);
 
 const onConnection = (socket) => {
     console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
-    socket.join(socket.room);
-    socket.emit("ping", "pong");
-    socket.emit("test2", "test");
 
-    socket.on("ping", (data) => {
-        console.log(`topic: ping recveied data: ${data}`);
-    });
-
-    socket.on("test", (data) => {
-        console.log(`topic: test recveied data: ${data}`);
-        io.emit("test2", data);
-        console.log(`topic: test2 sent data: ${data}`);
+    socket.on("tools:emit", (data) => {
+        [channel, content] = data.split('_');
+        io.emit(channel, content);
     });
 
     // for (const [key, value] of Object.entries(socket.topics)) {

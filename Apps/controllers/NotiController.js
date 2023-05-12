@@ -3,14 +3,15 @@ const ErrorResponse = require("../utils/errorResponse");
 
 //! Models
 const NotiModel = require("../models/NotiModel");
+const UserModel = require("../models/UserModel");
 
 exports.createNoti = asyncHandler(async (req, res, next) => {
     try {
         const newNoti = new NotiModel(req.body);
         const savedNoti = await newNoti.save();
-        if (savedNoti == null ){
+        if (savedNoti == null) {
             res.status(400).json({ success: false, message: err.message });
-        }else{
+        } else {
             res.status(200).json({
                 success: true
             });
@@ -45,6 +46,25 @@ exports.getNoti = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: res.notis });
 });
 
+exports.updateReadedAllNoti = asyncHandler(async (req, res, next) => {
+    const user = await UserModel.findOne({ username: req.params.id });
+
+    if (!user) {
+    return res.status(404).json({ success: false, message: "User not found" });
+    }
+    console.log(user._id)
+    const d = await NotiModel.find({user: user._id});
+    console.log(d)
+    const result = await NotiModel.updateMany(
+    { user: user._id },
+    { $set: { "noti.$[].isRead": false } }
+    );
+
+    res.status(200).json({ success: true});
+
+});
+
+
 exports.updateNoti = asyncHandler(async (req, res, next) => {
     const updateFields = {};
     for (const [key, value] of Object.entries(req.body)) {
@@ -63,7 +83,7 @@ exports.updateNoti = asyncHandler(async (req, res, next) => {
 exports.getNotiMdw = asyncHandler(async (req, res, next) => {
     let noti;
     try {
-        noti = await NotiModel.findById(req.params.id);
+        // noti = await NotiModel.find({ user.userId : req.params.id});
         if (noti == null) {
             return res.status(404).json({ success: false, message: 'Cannot find user' });
         }
