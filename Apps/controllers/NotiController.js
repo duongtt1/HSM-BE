@@ -70,15 +70,14 @@ exports.updateUnReadedAllNoti = asyncHandler(async (req, res, next) => {
     if (!user) {
     return res.status(404).json({ success: false, message: "User not found" });
     }
-    console.log(user._id)
     const d = await NotiModel.find({user: user._id});
-    console.log(d)
     const result = await NotiModel.updateMany(
     { user: user._id },
     { $set: { "noti.$[].isRead": false } }
     );
 
     res.status(200).json({ success: true});
+    
 
 });
 
@@ -101,7 +100,7 @@ exports.updateNoti = asyncHandler(async (req, res, next) => {
 exports.getNotiMdw = asyncHandler(async (req, res, next) => {
     let noti;
     try {
-        // noti = await NotiModel.find({ user.userId : req.params.id});
+        noti = await NotiModel.findById(req.params.id);
         if (noti == null) {
             return res.status(404).json({ success: false, message: 'Cannot find user' });
         }

@@ -9,11 +9,13 @@ const {
     createDoc,
     deleteDoc,
     updateDoc,
-    getDocMdw
+    getDocMdw,
+    getDocByAuthorMdw
 } = require("../controllers/DocsController");
 
 router.route("/").post(createDoc).get(getAllDocs);
 router.get('/:id', getDocMdw, getDoc)
+router.get('/author/:id', getDocByAuthorMdw, getDoc)
 router.delete('/:id', getDocMdw, deleteDoc)
 
 router.put('/:id', getDocMdw, updateDoc);

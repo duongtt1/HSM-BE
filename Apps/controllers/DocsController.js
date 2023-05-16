@@ -3,6 +3,7 @@ const ErrorResponse = require("../utils/errorResponse");
 
 //! Models
 const DocsModel = require("../models/DocsModel");
+const UserModel = require("../models/UserModel");
 
 exports.createDoc = asyncHandler(async (req, res, next) => {
     try {
@@ -67,6 +68,21 @@ exports.getDocMdw = asyncHandler(async (req, res, next) => {
     let doc;
     try {
         doc = await DocsModel.findById(req.params.id);
+        if (doc == null) {
+            return res.status(404).json({ success: false, message: 'Cannot find user' });
+        }
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Cannot find user' });
+    }
+    res.doc = doc;
+    next();
+});
+
+exports.getDocByAuthorMdw = asyncHandler(async (req, res, next) => {
+    let doc;
+    try {
+        user = await UserModel.findOne({username: req.params.id})
+        doc = await DocsModel.find({author: user._id});
         if (doc == null) {
             return res.status(404).json({ success: false, message: 'Cannot find user' });
         }
