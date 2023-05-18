@@ -3,6 +3,8 @@ const ErrorResponse = require("../utils/errorResponse");
 
 //! Models
 const AssignModel = require("../models/AssignModel");
+const UserModel = require("../models/UserModel");
+const QuetionModel = require("../models/QuetionModel");
 
 exports.createAssign = asyncHandler(async (req, res, next) => {
     try {
@@ -74,4 +76,18 @@ exports.getAssignMdw = asyncHandler(async (req, res, next) => {
     next();
 });
 
+exports.getAssignByAuthorMdw = asyncHandler(async (req, res, next) => {
+    let assign;
+    try {
+        user = await UserModel.findOne({username: req.params.id})
+        assign = await AssignModel.find({author: user._id}).populate('quetions');
+        if (assign == null) {
+            return res.status(404).json({ success: false, message: 'Cannot find user' });
+        }
+    } catch (err) {
+        return res.status(500).json({ success: false, message: 'Cannot find user' });
+    }
+    res.assign = assign;
+    next();
+});
 
