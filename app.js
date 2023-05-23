@@ -99,25 +99,18 @@ const io = socket(server);
 // socketio
 const { verifyToken } = require("./Apps/Socket/middleware/auth")(io);
 const { handleDisconnect } = require("./Apps/Socket/room/commom")(io);
+const { setOnline, setOffline } = require("./Apps/Socket/user/userCtrl")();
 
 io.use(verifyToken);
 
 const onConnection = (socket) => {
     console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
-
+    setOnline(socket.deviceId);
     socket.on("tools:emit", (data) => {
         [channel, content] = data.split('_');
         io.emit(channel, content);
     });
 
-    // for (const [key, value] of Object.entries(socket.topics)) {
-    //     console.log(`Client with id: ${socket.deviceId} subscribe to topic: ${value}`.yellow.bold);
-    //     socket.on(value, (data) => {
-    //             console.log(`topic: ${value} recveied data: ${data}`);
-    //             // io.to(socket.room).emit(value, data);
-    //         }
-    //     );
-    // }
     socket.on("disconnect", handleDisconnect);
 }
 

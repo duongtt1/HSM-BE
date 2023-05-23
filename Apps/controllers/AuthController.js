@@ -9,8 +9,7 @@ exports.login = asyncHandler(async (req, res, next) => {
         username = req.body.username;
         password = req.body.password;
 
-        user = await UserModel.find({ username: username, password: password });
-
+        user = await UserModel.findOne({ username: username, password: password });
         if (user != null) {
             res.status(200).json({ success: true, data: user });
         } else {

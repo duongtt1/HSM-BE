@@ -40,6 +40,9 @@ var UserModel = new Schema({
 	role: {
 		type: String
 	},
+	status: {
+		type: String
+	},
 });
 
 module.exports = mongoose.model("UserModel", UserModel);
