@@ -46,6 +46,8 @@ const classroomRoutes = require("./Apps/routes/ClassroomRoute")
 const bootingRoutes = require("./Apps/routes/BootingRoute");
 const ScheduleRoutes = require("./Apps/routes/ScheduleRoute");
 const authRoutes = require("./Apps/routes/AuthRoute");
+const NotiModel = require("./Apps/models/NotiModel");
+const UserModel = require("./Apps/models/UserModel");
 
 // init Epress App
 const app = express();
@@ -99,13 +101,43 @@ const io = socket(server);
 // socketio
 const { verifyToken } = require("./Apps/Socket/middleware/auth")(io);
 const { handleDisconnect } = require("./Apps/Socket/room/commom")(io);
-const { setOnline, setOffline } = require("./Apps/Socket/user/userCtrl")();
+const { setOnline } = require("./Apps/Socket/user/userCtrl")();
 
 io.use(verifyToken);
 
 const onConnection = (socket) => {
     console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
     setOnline(socket.deviceId);
+
+    socket.on("notifications", async (data) => {
+        [userId, content] = data.split('_');
+
+        notiTemp = {
+            content: content,
+            timing: new Date(),
+            url_icon: "../Resources/icon/add-user.png",
+            isRead: false
+        }
+
+        us = await UserModel.findOne({ userID: userId });
+
+        NotiModel.findOne({ user: us._id }).then((docs) => {
+            if (docs) {
+                docs.noti.push(notiTemp);
+                docs.noti
+                docs.save();
+            } else {
+                const newNoti = new NotiModel({
+                    user: userId,
+                    noti: [content]
+                });
+                newNoti.save();
+            }
+        });
+        topic = `${userId}:noti`;
+        io.emit(topic, content);
+    });
+
     socket.on("tools:emit", (data) => {
         [channel, content] = data.split('_');
         io.emit(channel, content);

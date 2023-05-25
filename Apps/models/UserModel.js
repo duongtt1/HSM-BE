@@ -43,6 +43,9 @@ var UserModel = new Schema({
 	status: {
 		type: String
 	},
+	topics: [{
+		type: String
+	}],
 });
 
 module.exports = mongoose.model("UserModel", UserModel);
