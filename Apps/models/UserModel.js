@@ -46,6 +46,9 @@ var UserModel = new Schema({
 	topics: [{
 		type: String
 	}],
+	avatar: {
+		type: String
+	}
 });
 
 module.exports = mongoose.model("UserModel", UserModel);

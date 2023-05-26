@@ -47,9 +47,17 @@ exports.getClass = asyncHandler(async (req, res, next) => {
 
 exports.getAllMemberClass = asyncHandler(async (req, res, next) => {
     classID = req.params.id
-    ret = await ClassModel.findOne({classID}).populate("members")
+    ret = await ClassModel.findOne({classID}).populate("members");
+    data = []
+    temp = {}
+    for (let i = 0; i < ret.members.length; i++) {
+        temp["userID"] = ret.members[i].username;
+        temp["fullname"] = ret.members[i].fullname;
+        temp["status"] = ret.members[i].status;
+        data.push(temp);
+    }
 
-    res.status(200).json({ success: true, data: ret.members });
+    res.status(200).json({ success: true, data: data });
 });
 
 exports.updateClass = asyncHandler(async (req, res, next) => {

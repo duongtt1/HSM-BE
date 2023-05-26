@@ -108,7 +108,6 @@ io.use(verifyToken);
 const onConnection = (socket) => {
     console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
     setOnline(socket.deviceId);
-
     socket.on("notifications", async (data) => {
         [userId, content] = data.split('_');
 
@@ -136,6 +135,13 @@ const onConnection = (socket) => {
         });
         topic = `${userId}:noti`;
         io.emit(topic, content);
+    });
+
+    socket.on("classroom:connected", (data) => {
+        [classid, userid] = data.split('_');
+        socket.classid = classid;
+        topic = `${classid}:connected`;
+        io.emit(topic, userid);
     });
 
     socket.on("tools:emit", (data) => {
