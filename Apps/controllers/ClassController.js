@@ -74,6 +74,30 @@ exports.updateClass = asyncHandler(async (req, res, next) => {
     }
 });
 
+exports.customClassFrontend = asyncHandler(async (req, res, next) => {
+    data = [
+        {
+            "classID": "IT001MTCL",
+            "nameClass": "IT001.MTCL",
+            "desClass": "Nhập môn lập trình chất lượng cao năm học 2021-2022",
+            "imgClass": "https://mui.com/static/images/cards/contemplative-reptile.jpg"
+        },
+        {
+            "classID": "MA003MTCL",
+            "nameClass": "MA003.MTCL",
+            "desClass": "Đại số tuyến tính chất lượng cao năm học 2021-2022",
+            "imgClass": "https://mui.com/static/images/cards/contemplative-reptile.jpg"
+        },
+        {
+            "classID": "CE212MTCL",
+            "nameClass": "CE212.MTCL",
+            "desClass": "Lý thuyết mạch điện chất lượng cao năm học 2021-2022",
+            "imgClass": "https://mui.com/static/images/cards/contemplative-reptile.jpg"
+        }
+    ]
+    res.status(200).json({ success: true, data: data });
+});
+
 // Middleware function to get a single user by ID
 exports.getClassMdw = asyncHandler(async (req, res, next) => {
     let classes;
