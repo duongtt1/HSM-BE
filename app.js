@@ -102,6 +102,7 @@ const io = socket(server);
 const { verifyToken } = require("./Apps/Socket/middleware/auth")(io);
 const { handleDisconnect } = require("./Apps/Socket/room/commom")(io);
 const { setOnline } = require("./Apps/Socket/user/userCtrl")();
+const AssignModel = require("./Apps/models/AssignModel");
 
 io.use(verifyToken);
 
@@ -142,6 +143,23 @@ const onConnection = (socket) => {
         socket.classid = classid;
         topic = `${classid}:connected`;
         io.emit(topic, userid);
+    });
+
+    socket.on("cheating", async (data) => {
+        [classid, nameAssign, msg] = data.split('_');
+        topic = `${classid}:${nameAssign}:cheating`;
+        
+        let assign = await AssignModel.findOne({ nameAssign: nameAssign });
+        [content, type] = msg.split(':');
+        assign["logs"].push({content: content, type: type})
+        await assign.save();
+        io.emit(topic, msg);
+    });
+
+    socket.on("assign:finished", async (data) => {
+        const assign = await AssignModel.findOne({ nameAssign: data });
+        assign["doned"] = true;
+        await assign.save();
     });
 
     socket.on("tools:emit", (data) => {

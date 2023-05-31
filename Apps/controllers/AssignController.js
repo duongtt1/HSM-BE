@@ -5,6 +5,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const AssignModel = require("../models/AssignModel");
 const UserModel = require("../models/UserModel");
 const QuetionModel = require("../models/QuetionModel");
+const ClassModel = require("../models/ClassModel");
 
 exports.createAssign = asyncHandler(async (req, res, next) => {
     try {
@@ -91,3 +92,22 @@ exports.getAssignByAuthorMdw = asyncHandler(async (req, res, next) => {
     next();
 });
 
+
+exports.getAllMemberAssign = asyncHandler(async (req, res, next) => {
+    try {
+        const assigns = await AssignModel.findOne({nameAssign: req.params.id}).populate('idclass');
+        
+        const classs = await ClassModel.findById(assigns.idclass._id).populate('members');
+
+        ret = [];
+        for (var i = 0; i < classs.members.length; i++) {
+            ret.push(classs.members[i].username);
+        }
+        res.status(200).json({
+            success: true,
+            data: ret
+        });
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+});

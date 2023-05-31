@@ -10,7 +10,8 @@ const {
     createAssign,
     deleteAssign,
     updateAssign,
-    getAssignByAuthorMdw
+    getAssignByAuthorMdw,
+    getAllMemberAssign
 } = require("../controllers/AssignController");
 
 router.route("/").post(createAssign).get(getAllAssign);
@@ -18,6 +19,7 @@ router.get('/:id', getAssignMdw, getAssign)
 router.get('/author/:id', getAssignByAuthorMdw, getAssign)
 router.delete('/:id', getAssignMdw, deleteAssign)
 
+router.get('/members/:id', getAllMemberAssign)
 router.put('/:id', getAssignMdw, updateAssign);
 
 module.exports = router;
