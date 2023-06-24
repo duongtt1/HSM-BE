@@ -3,25 +3,30 @@ var Schema = mongoose.Schema;
 
 var UserModel = new Schema({
 	username: {
-		type: String
+		type: String,
+		required: true,
 	},
 	password: {
-		type: String
+		type: String,
+		required: true
 	},
 	fullname: {
-		type: String
+		type: String,
+		required: true
 	},
 	school: {
-		type: String
+		type: String,
+		required: true
 	},
 	class: [{
-		type: String
+		type: String,
 	}],
 	role: {
-		type: String
+		type: String,
+		required: true
 	},
 	faces: [{
-		type: String
+		type: String,
 	}],
 	userID: {
 		type: String,
@@ -37,11 +42,9 @@ var UserModel = new Schema({
 	dayOfBirth: {
 		type: Date
 	},
-	role: {
-		type: String
-	},
 	status: {
-		type: String
+		type: String,
+		default: "offline"
 	},
 	topics: [{
 		type: String

@@ -4,11 +4,12 @@ var Schema = mongoose.Schema;
 var NotiModel = new Schema({
     user: { 
 		type: Schema.Types.ObjectId, 
-		// required: true, 
-		ref: "UserModel" 
+		required: true, 
+		ref: "UserModel",
+        unique: true
 	},
     noti: [{
-        type: Object
+        type: Object,
     }],
 	
 }, { timestamps: true });

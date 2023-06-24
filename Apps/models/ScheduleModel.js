@@ -6,22 +6,22 @@ var ScheduleModel = new Schema({
     endTime: { type: Date },
     idSubject: {
         type: Schema.Types.ObjectId,
-        // required: true, 
+        required: true, 
         ref: "SubjectModel"
     },
     idTeacher: {
         type: Schema.Types.ObjectId,
-        // required: true,
+        required: true,
         ref: "UserModel"
     },
     idClass: {
         type: Schema.Types.ObjectId,
-        // required: true,
+        required: true,
         ref: "ClassModel"
     },
     idRoom: {
         type: Schema.Types.ObjectId,
-        // required: true,
+        required: true,
         ref: "ClassRoomModel"
     },
 }, { timestamps: true });

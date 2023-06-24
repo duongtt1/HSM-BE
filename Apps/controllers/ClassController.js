@@ -55,6 +55,7 @@ exports.getAllMemberClass = asyncHandler(async (req, res, next) => {
         temp["fullname"] = ret.members[i].fullname;
         temp["status"] = ret.members[i].status;
         data.push(temp);
+        temp = {};
     }
 
     res.status(200).json({ success: true, data: data });

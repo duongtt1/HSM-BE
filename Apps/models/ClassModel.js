@@ -3,26 +3,33 @@ var Schema = mongoose.Schema;
 
 var ClassModel = new Schema({
 	nameClass: {
-		type: String
+		type: String,
+		require: true
 	},
 	classID: {
-		type: String
+		type: String,
+		require: true,
+		unique: true
 	},
 	members: [{
 		type: Schema.Types.ObjectId,
-		ref: "UserModel"
+		ref: "UserModel",
+		required: true,
+		unique: true
 	}],
 	docs: [{
 		type: Schema.Types.ObjectId,
-		ref: "DocsModel"
+		ref: "DocsModel",
+		unique: true
 	}],
 	assigns: [{
 		type: Schema.Types.ObjectId,
-		ref: "AssignModel"
+		ref: "AssignModel",
+		unique: true
 	}],
 	room: {
 		type: Schema.Types.ObjectId,
-		// required: true,
+		required: true,
 		ref: "ClassRoomModel",
 	},
 	subject: {
@@ -32,19 +39,20 @@ var ClassModel = new Schema({
 	},
 	teacher: {
 		type: Schema.Types.ObjectId,
-		// required: true,
+		required: true,
 		ref: "UserModel",
 	},
 	startTime: {
 		type: Number,
-		// required: true,
+		required: true,
 	},
 	endTime: {
 		type: Number,
-		// required: true,
+		required: true,
 	},
 	status: {
 		type: String,
+		default: "offline",
 	}
 });
 

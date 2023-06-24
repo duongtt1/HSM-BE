@@ -4,15 +4,16 @@ var Schema = mongoose.Schema;
 var DeviceModel = new Schema({
 	idDevice: { 
 		type: String, 
-		// required: true 
+		required: true 
 	},
 	nameDevice: { 
-		type: String 
+		type: String,
+		required: true, 
 	},
 	room: {
 		type: Schema.Types.ObjectId,
-		// required: true,
 		ref: "ClassRoomModel",
+		unique: true
 	},
 });
 

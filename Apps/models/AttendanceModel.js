@@ -4,23 +4,24 @@ var Schema = mongoose.Schema;
 var AttendanceModel = new Schema({
 	student: { 
 		type: Schema.Types.ObjectId, 
-		// required: true, 
+		required: true, 
 		ref: "UserModel" 
 	},
 	class: { 
 		type: Schema.Types.ObjectId, 
-		// required: true, 
+		required: true, 
 		ref: "ClassModel" 
 	},
 	timeCheck: { 
 		type: Date,
-		default: Date.now
+		default: Date.now()
 	},
 	note: { 
-		type: String 
+		type: String
 	},
 	isAttendance: { 
-		type: Boolean 
+		type: Boolean,
+		default: false
 	},
 }, { timestamps: true });
 

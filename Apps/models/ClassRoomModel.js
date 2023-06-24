@@ -4,30 +4,35 @@ var Schema = mongoose.Schema;
 var ClassRoomModel = new Schema({
 	idRoom: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	nameRoom: {
-		type: String
+		type: String,
+		required: true,
+		unique: true
 	},
 	adminUser: [
 		{
 			type: Schema.Types.ObjectId,
-			// required: true, 
-			ref: "UserModel"
+			required: true, 
+			ref: "UserModel",
+			unique: true
 		},
 	],
 	class: [
 		{
 			type: Schema.Types.ObjectId,
-			// required: true, 
-			ref: "ClassModel"
+			required: true, 
+			ref: "ClassModel",
+			unique: true
 		}
 	],
 	devices: [
 		{
 			type: Schema.Types.ObjectId,
-			// required: true, 
-			ref: "DeviceModel"
+			ref: "DeviceModel",
+			unique: true
 		},
 	],
 });

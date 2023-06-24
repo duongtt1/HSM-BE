@@ -5,12 +5,14 @@ const {
     createSchedule,
     getAllSchedules,
     getAllScheduleByDevice,
-    getScheduleByTeacher
+    getScheduleByTeacher,
+    getScheduleByTeacherID
 } = require("../controllers/ScheduleController");
 
 router.route("/").post(createSchedule).get(getAllSchedules);
 router.route("/devices/:id").get(getAllScheduleByDevice);
 router.route("/teacher/:id").get(getScheduleByTeacher);
+router.route("/cus/teacher/:id").get(getScheduleByTeacherID);
 
 
 module.exports = router;
