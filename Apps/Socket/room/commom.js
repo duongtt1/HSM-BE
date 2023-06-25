@@ -10,6 +10,7 @@ module.exports = (io) => {
         console.log(
             `Client with id: ${socket.deviceId} disconnect to server`.yellow.bold
         );
+        socket.leave("room:testing")
     };
 
     return {

@@ -53,12 +53,8 @@ const UserModel = require("./Apps/models/UserModel");
 const app = express();
 
 app.use(express.json());
-
 app.use(cookieParser());
-
-if (process.env.NODE_ENV === "development") {
-    app.use(morgan("dev"));
-}
+app.use(morgan("dev"));
 
 // Sanitize data
 app.use(mongoSanitize());
@@ -105,6 +101,13 @@ const { setOnline } = require("./Apps/Socket/user/userCtrl")();
 const AssignModel = require("./Apps/models/AssignModel");
 
 io.use(verifyToken);
+
+function getNumUsersInRoom(room) {
+    const roomSockets = io.sockets.adapter.rooms.get(room);
+    const numUsers = roomSockets ? roomSockets.size : 0;
+
+    return numUsers;
+}
 
 const onConnection = (socket) => {
     console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
@@ -165,6 +168,23 @@ const onConnection = (socket) => {
     socket.on("tools:emit", (data) => {
         [channel, content] = data.split('_');
         io.emit(channel, content);
+    });
+    
+    socket.on("test:stress", (data) => {
+        socket.join(data.room);
+    });
+    
+    socket.on('emitToRoom', (data) => {
+        const delay = Date.now() - data.timestamp; // Calculate the time delay
+        console.log(`Time delay to emit to room: ${delay}ms`);
+        
+        let msg = {
+            statTime: data.timestamp,
+            timeDelayAtServer: delay,
+            numuserinroom: getNumUsersInRoom(data.room)
+        }
+        
+        io.to(data.room).emit('room:testing:back', { message: msg });
     });
 
     socket.on("disconnect", handleDisconnect);
