@@ -171,7 +171,9 @@ const onConnection = (socket) => {
     });
     
     socket.on("test:stress", (data) => {
-        socket.join(data.room);
+        console.log(getNumUsersInRoom(data))
+        socket.join(data);
+        console.log(getNumUsersInRoom(data))
     });
     
     socket.on('emitToRoom', (data) => {
@@ -183,7 +185,7 @@ const onConnection = (socket) => {
             timeDelayAtServer: delay,
             numuserinroom: getNumUsersInRoom(data.room)
         }
-        
+        console.log(msg);
         io.to(data.room).emit('room:testing:back', { message: msg });
     });
 
