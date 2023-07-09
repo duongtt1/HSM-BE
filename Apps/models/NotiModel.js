@@ -6,7 +6,7 @@ var NotiModel = new Schema({
 		type: Schema.Types.ObjectId, 
 		required: true, 
 		ref: "UserModel",
-        unique: true
+        // unique: true
 	},
     noti: [{
         type: Object,
