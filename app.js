@@ -131,7 +131,7 @@ const onConnection = (socket) => {
                 docs.save();
             } else {
                 const newNoti = new NotiModel({
-                    user: userId,
+                    user: us._id,
                     noti: [content]
                 });
                 newNoti.save();
