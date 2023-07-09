@@ -123,15 +123,16 @@ const onConnection = (socket) => {
         }
 
         us = await UserModel.findOne({ userID: userId });
-
+        console.log(us._id);
         NotiModel.findOne({ user: us._id }).then((docs) => {
             if (docs) {
+                console.log(docs);
                 docs.noti.push(notiTemp);
                 docs.noti
                 docs.save();
             } else {
                 const newNoti = new NotiModel({
-                    user: userId,
+                    user: us._id,
                     noti: [content]
                 });
                 newNoti.save();
