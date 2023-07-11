@@ -45,9 +45,12 @@ const notiRoutes = require("./Apps/routes/NotiRoute")
 const classroomRoutes = require("./Apps/routes/ClassroomRoute")
 const bootingRoutes = require("./Apps/routes/BootingRoute");
 const ScheduleRoutes = require("./Apps/routes/ScheduleRoute");
+const LogRoutes = require("./Apps/routes/LogRoute");
+
 const authRoutes = require("./Apps/routes/AuthRoute");
 const NotiModel = require("./Apps/models/NotiModel");
 const UserModel = require("./Apps/models/UserModel");
+
 
 // init Epress App
 const app = express();
@@ -86,6 +89,7 @@ app.use(versionOne("classroom"), classroomRoutes);
 app.use(versionOne("booting"), bootingRoutes);
 app.use(versionOne("schedule"), ScheduleRoutes);
 app.use(versionOne("auth"), authRoutes);
+app.use(versionOne("log"), LogRoutes);
 
 app.use(errorHandler);
 
@@ -188,6 +192,8 @@ const onConnection = (socket) => {
         console.log(msg);
         io.to(data.room).emit('room:testing:back', { message: msg });
     });
+
+    
 
     socket.on("disconnect", handleDisconnect);
 }
