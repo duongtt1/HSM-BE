@@ -114,4 +114,30 @@ exports.getClassMdw = asyncHandler(async (req, res, next) => {
     next();
 });
 
+exports.getAllStudentClass = asyncHandler(async (req, res, next) => {
+    classID = req.params.id
+    try {
+        ret = await ClassModel.findOne({classID}).populate("members");
+        data = []
+        temp = {}
+        for (let i = 0; i < ret.members.length; i++) {
+            if(ret.members[i].role == "student"){
+                temp["userID"] = ret.members[i].username;
+                temp["fullname"] = ret.members[i].fullname;
+                temp["statusLogin"] = ret.members[i].deviceLogin !== "" ? ret.members[i].deviceLogin : "offline"
+                temp["statusJoinClass"] = ret.members[i].inClass
+                data.push(temp);
+                temp = {};
+            }
+        }
+        if (data == null) {
+            return res.status(404).json({ success: false, message: 'Cannot find user' });
+        } else {
+            return res.status(200).json({ success: true, data: data });
+        }
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+});
+
 

@@ -1,8 +1,14 @@
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 
+const accountSid = 'AC886c8b98db22c1456bf483b00ea387fb';
+const authToken = 'e8272eabc79051665624582426910777';
+const client = require('twilio')(accountSid, authToken);
+
+
 //! Models
 const UserModel = require("../models/UserModel");
+const ParentModel = require("../models/ParentModel");
 
 exports.createUser = asyncHandler(async (req, res, next) => {
     try {
@@ -70,4 +76,39 @@ exports.getUserMdw = asyncHandler(async (req, res, next) => {
     next();
 });
 
+exports.sendSmsToParent = asyncHandler(async (req, res, next) => {
+    content = req.body.content;
+    studentID = req.params.id;
+    try {
+        _user = await UserModel.findOne({ username: studentID });
+        if (_user == null) {
+            return res.status(404).json({ success: false, message: 'Cannot find user' });
+        }
+        _parent = await ParentModel.findOne({ student: _user._id });
+        if (_parent == null) {
+            return res.status(404).json({ success: false, message: 'Cannot find parent' });
+        }
 
+        const response = await client.messages.create({
+            body: content,
+            from: '+17854501156',
+            to: _parent.phoneNumber
+        });
+        if (response.errorCode == null) {
+            res.status(200).json({
+                success: true
+            })
+        } else {
+            res.status(400).json({
+                success: false,
+                message: response.errorMessage
+            })
+        }
+    } catch (error) {
+        console.error('Failed to send SMS:', error);
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+});

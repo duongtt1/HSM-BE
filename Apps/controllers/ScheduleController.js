@@ -263,7 +263,7 @@ exports.getScheduleByStudent = asyncHandler(async (req, res, next) => {
             .populate("idTeacher")
             .populate("idClass")
             .populate("idRoom").exec();
-        console.log(schedules);
+        // console.log(schedules);
         for (let idx = 0; idx < schedules.length; idx++) {
             for(let i = 0; i < schedules[idx].idClass.members.length; i++){
                 if(device.manager.equals(schedules[idx].idClass.members[i])){

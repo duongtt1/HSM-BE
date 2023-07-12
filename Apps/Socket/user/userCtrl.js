@@ -11,7 +11,10 @@ module.exports = () => {
     const setOffline = async function (token) {
         const updateFields = {};
         updateFields["status"] = "offline";
+        updateFields["deviceLogin"] = "offline";
         await UserModel.updateOne({ username: token }, { $set: updateFields });
+        // console.log("update offline");
+        
         const updatedUser = await UserModel.findOne({ username: token });
     };
 

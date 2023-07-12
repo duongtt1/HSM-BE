@@ -28,9 +28,12 @@ exports.studentLogin = asyncHandler(async (req, res, next) => {
     try {
         username = req.body.username;
         password = req.body.password;
-
+        deviceLogin = req.body.deviceLogin;
+        // console.log(req.body.deviceLogin)
         user = await UserModel.findOne({ username: username, password: password, role: "student" });
-        console.log(user);
+        // console.log(user);
+        user.deviceLogin = deviceLogin;
+        await user.save();
         if (user != null) {
             res.status(200).json({ success: true, data: user });
         } else {

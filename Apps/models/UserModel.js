@@ -52,9 +52,12 @@ var UserModel = new Schema({
 	avatar: {
 		type: String
 	},
-	deviceLogin: [{
+	deviceLogin: {
 		type: String
-	}],
+	},
+	inClass: {
+		type: String
+	},
 });
 
 module.exports = mongoose.model("UserModel", UserModel);

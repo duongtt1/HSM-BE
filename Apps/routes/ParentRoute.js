@@ -4,12 +4,9 @@ const router = express.Router();
 const { protect, authorize } = require("../middlewares/auth");
 
 const {
-    createLog,
-    getLogByUserID
-} = require("../controllers/LogController");
+    createParent
+} = require("../controllers/ParentController");
 
-router.route("/add").post(createLog)
-router.route("/:userID").get(getLogByUserID)
-// rou
+router.route("/").post(createParent)
 
 module.exports = router;

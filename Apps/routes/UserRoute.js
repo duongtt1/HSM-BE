@@ -9,12 +9,14 @@ const {
     getAllUser,
     getUser,
     deleteUser,
-    updateUser
+    updateUser,
+    sendSmsToParent
 } = require("../controllers/UserController");
 
 router.route("/").post(createUser).get(getAllUser);
 router.get('/:id', getUserMdw, getUser)
 router.delete('/:id', getUserMdw, deleteUser)
+router.post('/sendSmsToParent/:id', sendSmsToParent)
 
 router.put('/:id', getUser, updateUser);
 

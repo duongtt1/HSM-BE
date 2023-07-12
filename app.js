@@ -46,8 +46,9 @@ const classroomRoutes = require("./Apps/routes/ClassroomRoute")
 const bootingRoutes = require("./Apps/routes/BootingRoute");
 const ScheduleRoutes = require("./Apps/routes/ScheduleRoute");
 const LogRoutes = require("./Apps/routes/LogRoute");
-
 const authRoutes = require("./Apps/routes/AuthRoute");
+const parentRoutes = require("./Apps/routes/ParentRoute");
+
 const NotiModel = require("./Apps/models/NotiModel");
 const UserModel = require("./Apps/models/UserModel");
 
@@ -90,6 +91,7 @@ app.use(versionOne("booting"), bootingRoutes);
 app.use(versionOne("schedule"), ScheduleRoutes);
 app.use(versionOne("auth"), authRoutes);
 app.use(versionOne("log"), LogRoutes);
+app.use(versionOne("parent"), parentRoutes);
 
 app.use(errorHandler);
 
@@ -180,6 +182,25 @@ const onConnection = (socket) => {
         console.log(getNumUsersInRoom(data))
     });
     
+    socket.on("noti:status", async (data) => {
+        console.log(data);
+        [userid, classid, type] = data.split('_');
+        // 18520652_KTMT0001_login
+        // topic = KTMT0001:login
+        topic = `${classid}:status`;
+        content = `${userid}_${type}`;
+        if(type == "joinclass"){
+            _user = await UserModel.findOne({ userID: userid });
+            _user["inClass"] = "online";
+            await _user.save();
+        }else if(type == "leaveclass"){
+            _user = await UserModel.findOne({ userID: userid });
+            _user["inClass"] = "offline";
+            await _user.save();
+        }
+        io.emit(topic, content);
+    });
+
     socket.on('emitToRoom', (data) => {
         const delay = Date.now() - data.timestamp; // Calculate the time delay
         console.log(`Time delay to emit to room: ${delay}ms`);
