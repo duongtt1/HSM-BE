@@ -105,6 +105,7 @@ const { verifyToken } = require("./Apps/Socket/middleware/auth")(io);
 const { handleDisconnect } = require("./Apps/Socket/room/commom")(io);
 const { setOnline, setIP } = require("./Apps/Socket/user/userCtrl")();
 const AssignModel = require("./Apps/models/AssignModel");
+const ClassModel = require("./Apps/models/ClassModel");
 
 io.use(verifyToken);
 
@@ -221,10 +222,35 @@ const onConnection = (socket) => {
         if (device == "web"){
             device = socket.handshake.address.address
         }
-        console.log(data)
+        // console.log(data)
         msgActivate = `${userid}_${device}`
         topic = `${classid}:activate`;
         io.emit(topic, msgActivate);
+    })
+
+    socket.on('noti:assign:start', async (data) => {
+        // KTMT0001_AS0001
+        [idClass, idAssign] = data.split('_');
+        __class = await ClassModel.findOne({classID: idClass}).populate("members");
+        listIdStudent = []
+        temp = {}
+        for (let i = 0; i < __class.members.length; i++) {
+            if(__class.members[i].role == "student"){
+                listIdStudent.push(__class.members[i].username);
+            }
+        }
+
+        for (let idx = 0; idx < listIdStudent.length; idx++) {
+            topic = `${idClass}:${listIdStudent[idx]}:assign:start`
+            io.emit(topic, idAssign)
+        }
+    })
+
+    socket.on("assign:ctrl", async (data) => {
+        [assignID, cmd] = data.split("_")
+        topic = `${assignID}:ctrl`
+        console.log(topic + " -> " + cmd)
+        io.emit(topic, cmd)
     })
 
     socket.on("disconnect", handleDisconnect);

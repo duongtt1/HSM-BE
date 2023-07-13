@@ -11,7 +11,7 @@ module.exports = (io) => {
         // console.log(`${socket.classid}:activate`)
         // console.log(msgLogout)
         io.emit(`${socket.classid}:activate`, msgLogout);
-        io.emit(`${classid}:status`, msgLeaveClass);
+        io.emit(`${socket.classid}:status`, msgLeaveClass);
         console.log(
             `Client with id: ${socket.deviceId} disconnect to server`.yellow.bold
         );

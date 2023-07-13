@@ -111,3 +111,19 @@ exports.getAllMemberAssign = asyncHandler(async (req, res, next) => {
         res.status(400).json({ success: false, message: err.message });
     }
 });
+
+
+exports.getAssignByID = asyncHandler(async (req, res, next) => {
+    try {
+        const assigns = await AssignModel.findOne({idAssign: req.params.id}).populate('quetions');
+        // console.log(assigns)
+        if (assigns){
+            res.status(200).json({
+                success: true,
+                data: assigns
+            });
+        }
+    } catch (error) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+});

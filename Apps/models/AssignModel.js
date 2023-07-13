@@ -3,6 +3,9 @@ var Schema = mongoose.Schema;
 
 var AssignModel = new Schema({
 	nameAssign: { type: String, required: true, unique: true },
+	idAssign: {
+		type: String
+	},
 	author: { 
 		type: Schema.Types.ObjectId, 
 		required: true, 
