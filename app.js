@@ -103,7 +103,7 @@ const io = socket(server);
 // socketio
 const { verifyToken } = require("./Apps/Socket/middleware/auth")(io);
 const { handleDisconnect } = require("./Apps/Socket/room/commom")(io);
-const { setOnline } = require("./Apps/Socket/user/userCtrl")();
+const { setOnline, setIP } = require("./Apps/Socket/user/userCtrl")();
 const AssignModel = require("./Apps/models/AssignModel");
 
 io.use(verifyToken);
@@ -118,6 +118,8 @@ function getNumUsersInRoom(room) {
 const onConnection = (socket) => {
     console.log(`Client with id: ${socket.deviceId} connected to server`.yellow.bold);
     setOnline(socket.deviceId);
+    setIP(socket, socket.deviceId)
+
     socket.on("notifications", async (data) => {
         [userId, content] = data.split('_');
 
@@ -157,7 +159,6 @@ const onConnection = (socket) => {
     socket.on("cheating", async (data) => {
         [classid, nameAssign, msg] = data.split('_');
         topic = `${classid}:${nameAssign}:cheating`;
-        
         let assign = await AssignModel.findOne({ nameAssign: nameAssign });
         [content, type] = msg.split(':');
         assign["logs"].push({content: content, type: type})
@@ -214,7 +215,17 @@ const onConnection = (socket) => {
         io.to(data.room).emit('room:testing:back', { message: msg });
     });
 
-    
+    socket.on('noti:activate', (data) => {
+        [userid, classid, device] = data.split('_');
+        socket.classid = classid;
+        if (device == "web"){
+            device = socket.handshake.address.address
+        }
+        console.log(data)
+        msgActivate = `${userid}_${device}`
+        topic = `${classid}:activate`;
+        io.emit(topic, msgActivate);
+    })
 
     socket.on("disconnect", handleDisconnect);
 }

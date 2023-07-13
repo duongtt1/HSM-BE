@@ -58,6 +58,9 @@ var UserModel = new Schema({
 	inClass: {
 		type: String
 	},
+	ip: {
+		type: String
+	},
 });
 
 module.exports = mongoose.model("UserModel", UserModel);

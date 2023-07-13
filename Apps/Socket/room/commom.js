@@ -6,7 +6,12 @@ module.exports = (io) => {
     const handleDisconnect = function (payload) {
         const socket = this;
         setOffline(socket.deviceId);
-        io.emit(`${socket.classid}:disconnected`, socket.deviceId);
+        msgLogout = `${socket.deviceId}_offline`
+        msgLeaveClass = `${socket.deviceId}_leaveclass`
+        // console.log(`${socket.classid}:activate`)
+        // console.log(msgLogout)
+        io.emit(`${socket.classid}:activate`, msgLogout);
+        io.emit(`${classid}:status`, msgLeaveClass);
         console.log(
             `Client with id: ${socket.deviceId} disconnect to server`.yellow.bold
         );
