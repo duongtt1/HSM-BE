@@ -247,10 +247,14 @@ const onConnection = (socket) => {
     })
 
     socket.on("assign:ctrl", async (data) => {
-        [assignID, cmd] = data.split("_")
-        topic = `${assignID}:ctrl`
-        console.log(topic + " -> " + cmd)
-        io.emit(topic, cmd)
+        try {
+            [assignid, type] = data.split('_');
+            topic = `${assignid}:ctrl`;
+            console.log(topic + " " + type)
+            io.emit(topic, type);
+        }catch(err){
+            console.log(err)
+        }
     })
 
     socket.on("disconnect", handleDisconnect);

@@ -24,6 +24,7 @@ module.exports = () => {
         const updateFields = {};
         updateFields["status"] = "offline";
         updateFields["deviceLogin"] = "offline";
+        updateFields["inClass"] = "offline";
         await UserModel.updateOne({ username: token }, { $set: updateFields });
         // console.log("update offline");
         
