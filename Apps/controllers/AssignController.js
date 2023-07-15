@@ -127,3 +127,27 @@ exports.getAssignByID = asyncHandler(async (req, res, next) => {
         res.status(400).json({ success: false, message: err.message });
     }
 });
+
+exports.storeResultAssignByID = asyncHandler(async (req, res, next) => {
+    try {
+        var point = 0;
+        result = req.body.result;
+        resultCompare = result.map(element => element.toUpperCase());
+        const assigns = await AssignModel.findOne({idAssign: req.body.idAssign}).populate('quetions');
+        list_asnwer = []
+        for (var i = 0; i < assigns.quetions.length; i++) {
+            list_asnwer.push(assigns.quetions[i].correctAnswer)
+        }
+        num_quetion = assigns.quetions.length;
+        point_in_quetion = 10/num_quetion;
+        for(var i = 0; i < list_asnwer.length; i++){
+            point += (resultCompare[i] == list_asnwer[i]) ? point_in_quetion : 0;
+        }
+        const user = await UserModel.findOne({username: req.params.id});
+        assigns.resultOfStudent.push({student: user._id, point: point, result: resultCompare});
+        await assigns.save();
+        res.status(200).json({ success: true, data: {student: user._id, point: point} });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+});
