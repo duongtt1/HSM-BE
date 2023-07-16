@@ -98,7 +98,11 @@ app.use(errorHandler);
 const PORT = process.env.PORT;
 
 const server = http.createServer(app);
-const io = socket(server);
+const io = socket(server, {
+    cors: {
+        origin: "*",
+    },
+});
 
 // socketio
 const { verifyToken } = require("./Apps/Socket/middleware/auth")(io);

@@ -144,6 +144,13 @@ exports.storeResultAssignByID = asyncHandler(async (req, res, next) => {
             point += (resultCompare[i] == list_asnwer[i]) ? point_in_quetion : 0;
         }
         const user = await UserModel.findOne({username: req.params.id});
+        for (var i = 0; i < assigns.resultOfStudent.length; i++) {
+            if (assigns.resultOfStudent[i].student == user._id){
+                assigns.resultOfStudent[i] = {student: user._id, point: point, result: resultCompare};
+                await assigns.save();
+                res.status(200).json({ success: true, data: {student: user._id, point: point} });
+            }
+        }
         assigns.resultOfStudent.push({student: user._id, point: point, result: resultCompare});
         await assigns.save();
         res.status(200).json({ success: true, data: {student: user._id, point: point} });
