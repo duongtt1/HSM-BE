@@ -162,9 +162,12 @@ const onConnection = (socket) => {
     });
 
     socket.on("cheating", async (data) => {
+        console.log(data);
         [classid, nameAssign, msg] = data.split('_');
         topic = `${classid}:${nameAssign}:cheating`;
-        let assign = await AssignModel.findOne({ nameAssign: nameAssign });
+        console.log(topic);
+        topic = `${classid}:${nameAssign}:cheating`;
+        let assign = await AssignModel.findOne({ idAssign: nameAssign });
         [content, type] = msg.split(':');
         assign["logs"].push({content: content, type: type})
         await assign.save();

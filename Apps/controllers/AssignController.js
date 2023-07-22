@@ -131,6 +131,8 @@ exports.getAssignByID = asyncHandler(async (req, res, next) => {
 exports.storeResultAssignByID = asyncHandler(async (req, res, next) => {
     try {
         var point = 0;
+        // console.log(req.body)
+        // console.log(req.params)
         result = req.body.result;
         resultCompare = result.map(element => element.toUpperCase());
         const assigns = await AssignModel.findOne({idAssign: req.body.idAssign}).populate('quetions');
@@ -145,10 +147,14 @@ exports.storeResultAssignByID = asyncHandler(async (req, res, next) => {
         }
         const user = await UserModel.findOne({username: req.params.id});
         for (var i = 0; i < assigns.resultOfStudent.length; i++) {
-            if (assigns.resultOfStudent[i].student == user._id){
+            // console.log(assigns.resultOfStudent[i].student)
+            // console.log(user._id)
+            if (String(assigns.resultOfStudent[i].student) == String(user._id)){
+                console.log("update")
                 assigns.resultOfStudent[i] = {student: user._id, point: point, result: resultCompare};
                 await assigns.save();
                 res.status(200).json({ success: true, data: {student: user._id, point: point} });
+                return;
             }
         }
         assigns.resultOfStudent.push({student: user._id, point: point, result: resultCompare});
