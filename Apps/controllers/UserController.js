@@ -2,7 +2,7 @@ const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 
 const accountSid = 'AC886c8b98db22c1456bf483b00ea387fb';
-const authToken = 'e8272eabc79051665624582426910777';
+const authToken = 'dc4e211ed8e668de867b7618311eb7b0';
 const client = require('twilio')(accountSid, authToken);
 
 
