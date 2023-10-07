@@ -30,7 +30,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ls ${{ github.workspace }}
+          ls ./
           ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
 
