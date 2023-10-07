@@ -18,12 +18,6 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install Dependencies
-        run: npm install
-
-      # - name: Build
-      #   run: npm run build
-
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
@@ -33,5 +27,4 @@ jobs:
 
       - name: Deploy to AWS EC2
         run: |
-          ssh ubuntu@${{ secrets.HOST }} 'cd ~/workplace && source ~/.nvm/nvm.sh && npm install && pm2 start app.js'
-        #   ssh ubuntu@${{ secrets.HOST }} '~/workplace/scripts/auto_restart.sh'
+          ssh ubuntu@${{ secrets.HOST }} 'cd ~/repo/scripts/ && chmod +x auto_deploy.sh && ./auto_deploy.sh'
