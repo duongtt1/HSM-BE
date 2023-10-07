@@ -28,11 +28,12 @@ jobs:
         run: |
           echo "remote setup ssh"
           mkdir -p ~/.ssh
+          echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}"
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ls ./
+          cat ~/.ssh/id_rsa  # Print the content of the private key for debugging
           ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-
+          cat ~/.ssh/known_hosts  # Print the content of known_hosts for debugging
 
       - name: Deploy to AWS EC2
         run: |
