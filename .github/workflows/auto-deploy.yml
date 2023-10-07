@@ -33,5 +33,5 @@ jobs:
 
       - name: Deploy to AWS EC2
         run: |
-          ssh ubuntu@${{ secrets.HOST }} 'chmod +x ~/workplace/scripts/auto_restart.sh'
-          ssh ubuntu@${{ secrets.HOST }} '~/workplace/scripts/auto_restart.sh'
+          ssh -o ubuntu@${{ secrets.HOST }} 'cd ~/workplace && source ~/.nvm/nvm.sh && npm install'
+        #   ssh ubuntu@${{ secrets.HOST }} '~/workplace/scripts/auto_restart.sh'
