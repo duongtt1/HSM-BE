@@ -27,13 +27,14 @@ jobs:
       - name: Configure SSH
         run: |
           echo "remore setup ssh"
-          # mkdir -p ~/.ssh
-          # echo "$secrets.SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          # chmod 600 ~/.ssh/id_rsa
-          # ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          echo "$secrets.SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to AWS EC2
         run: |
           echo "Deploying to AWS EC2"
-          # scp -r ./dist ubuntu@${{ secrets.HOST }}:/path/to/your/app
-          # ssh ubuntu@${{ secrets.HOST }} 'cd /path/to/your/app && npm install && pm2 restart your-app'
+          # scp -r ./dist ubuntu@${{ secrets.HOST }}:~/workplace/Thesis-back-end
+          # ssh ubuntu@${{ secrets.HOST }} 'git clone ${{ github.repositoryUrl }} ~/workplace/Thesis-back-end'
+          ssh ubuntu@${{ secrets.HOST }} 'cd ~/workplace/Thesis-back-end && npm install && pm2 restart app.js'
