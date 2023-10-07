@@ -27,4 +27,5 @@ jobs:
 
       - name: Deploy to AWS EC2
         run: |
-          ssh ubuntu@${{ secrets.HOST }} 'cd ~/repo/scripts/ && chmod +x auto_deploy.sh && ./auto_deploy.sh'
+          scp -r ./scripts ubuntu@${{ secrets.HOST }}:~/script_deploy
+          ssh ubuntu@${{ secrets.HOST }} 'cd ~/script_deploy/ && chmod +x auto_deploy.sh && ./auto_deploy.sh'
