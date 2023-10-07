@@ -37,5 +37,5 @@ jobs:
         run: |
           echo "Deploying to AWS EC2 to ${{ secrets.HOST }}"
           # scp -r ./dist ubuntu@${{ secrets.HOST }}:~/workplace/Thesis-back-end
-          ssh ubuntu@${{ secrets.HOST }} 'git clone ${{ github.repositoryUrl }} ~/workplace/Thesis-back-end'
+          # ssh ubuntu@${{ secrets.HOST }} 'git clone git@github.com:duongtt1/HSM-BE.git ~/workplace/Thesis-back-end'
           ssh ubuntu@${{ secrets.HOST }} 'cd ~/workplace/Thesis-back-end && npm install && pm2 restart app.js'
