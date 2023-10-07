@@ -37,4 +37,4 @@ jobs:
         run: |
           echo "Deploying to AWS EC2 to ${{ secrets.HOST }}"
           ssh ubuntu@${{ secrets.HOST }} 'git clone https://github.com/duongtt1/HSM-BE.git ~/workplace/'
-          ssh ubuntu@${{ secrets.HOST }} 'cd ~/workplace/HSM-BE && npm install && pm2 restart app.js'
+          ssh ubuntu@${{ secrets.HOST }} 'cd ~/workplace/ && npm install && pm2 restart app.js'
