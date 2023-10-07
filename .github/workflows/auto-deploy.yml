@@ -35,6 +35,8 @@ jobs:
       - name: Deploy to AWS EC2
         run: |
           ssh ubuntu@${{ secrets.HOST }} 'git clone https://github.com/duongtt1/HSM-BE.git ~/workplace/'
+          ssh ubuntu@${{ secrets.HOST }} 'export NVM_DIR=/home/ubuntu/.nvm'
+          ssh ubuntu@${{ secrets.HOST }} 'source /home/ubuntu/.nvm/nvm.sh'
           ssh ubuntu@${{ secrets.HOST }} 'cd ~/workplace/ && npm install && pm2 restart app.js'
           ssh ubuntu@${{ secrets.HOST }} 'npm install && pm2 restart app.js'
           ssh ubuntu@${{ secrets.HOST }} 'pm2 restart app.js'
