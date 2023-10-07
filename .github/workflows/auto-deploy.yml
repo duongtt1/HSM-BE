@@ -26,7 +26,6 @@ jobs:
 
       - name: Configure SSH
         run: |
-          echo "remote setup ssh"
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ls -a ~/
@@ -35,6 +34,5 @@ jobs:
 
       - name: Deploy to AWS EC2
         run: |
-          echo "Deploying to AWS EC2 to ${{ secrets.HOST }}"
           ssh ubuntu@${{ secrets.HOST }} 'git clone https://github.com/duongtt1/HSM-BE.git ~/workplace/'
           ssh ubuntu@${{ secrets.HOST }} 'cd ~/workplace/ && npm install && pm2 restart app.js'
