@@ -31,9 +31,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ls -a ~/
           chmod 600 ~/.ssh/id_rsa
-          # cat ~/.ssh/id_rsa  # Print the content of the private key for debugging
-          # ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-          # cat ~/.ssh/known_hosts  # Print the content of known_hosts for debugging
+          ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to AWS EC2
         run: |
