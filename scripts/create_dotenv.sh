@@ -6,15 +6,10 @@ if [ $# -ne 3 ]; then
     exit 1
 fi
 
-# Assign parameters to variables
-NODE_ENV=$1
-MONGO_URI=$2
-PORT=$3
-
 # Write to .env file
-echo "NODE_ENV=$NODE_ENV" > .env
-echo "MONGO_URI=$MONGO_URI" >> .env
-echo "PORT=$PORT" >> .env
+echo "NODE_ENV=$1" > .env
+echo "MONGO_URI=$2" >> .env
+echo "PORT=$3" >> .env
 
 echo "Parameters written to .env file:"
 # cat .env
