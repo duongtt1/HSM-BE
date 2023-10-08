@@ -38,6 +38,6 @@ jobs:
       - name: Deploy to AWS EC2
         run: |
           ls -a
-          scp ./env.txt ubuntu@${{ secrets.HOST }}:~/repo
-          ssh ubuntu@${{ secrets.HOST }} 'cd ~/script_deploy/ && chmod +x auto_deploy.sh && ./auto_deploy.sh'
-          scp -r ./scripts ubuntu@${{ secrets.HOST }}:~/script_deploy
+          scp ./env.txt ubuntu@${{ secrets.HOST }}:~/
+          # ssh ubuntu@${{ secrets.HOST }} 'cd ~/script_deploy/ && chmod +x auto_deploy.sh && ./auto_deploy.sh'
+          # scp -r ./scripts ubuntu@${{ secrets.HOST }}:~/script_deploy
