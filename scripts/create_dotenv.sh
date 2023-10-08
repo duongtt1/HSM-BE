@@ -11,9 +11,9 @@
 # echo "MONGO_URI=$2" >> .env
 # echo "PORT=$3" >> .env
 
-echo "NODE_ENV=$NODE_ENV" > .env
-echo "MONGO_URI=$MONGO_URI" >> .env
-echo "PORT=$PORT" >> .env
+echo "NODE_ENV=$NODE_ENV" > env.txt
+echo "MONGO_URI=$MONGO_URI" >> env.txt
+echo "PORT=$PORT" >> env.txt
 
 echo "Parameters written to .env file:"
 # cat .env
