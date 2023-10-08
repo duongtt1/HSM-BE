@@ -6,6 +6,11 @@ on:
     branches:
       - master
 
+env:
+  NODE_ENV: ${{secrets.NODE_ENV}}
+  MONGO_URI: ${{secrets.MONGO_URI}} 
+  PORT: ${{ secrets.PORT }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,7 +26,7 @@ jobs:
       - name: Create variable environment
         run: |
           chmod +x ./scripts/create_dotenv.sh
-          ./scripts/create_dotenv.sh ${{secrets.NODE_ENV}} ${{secrets.MONGO_URI}} ${{ secrets.PORT }}
+          ./scripts/create_dotenv.sh
 
       - name: Configure SSH
         run: |
