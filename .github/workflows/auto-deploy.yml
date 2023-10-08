@@ -20,6 +20,7 @@ jobs:
 
       - name: Create variable environment
         run: |
+          chmod +x ./scripts/create_dotenv.sh
           ./scripts/create_dotenv.sh ${{secrets.NODE_ENV}} ${{secrets.MONGO_URI}} ${{ secrets.PORT }}
 
       - name: Configure SSH
