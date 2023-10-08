@@ -1,9 +1,9 @@
 const asyncHandler = require("../middlewares/async");
 const ErrorResponse = require("../utils/errorResponse");
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const client = require('twilio')(accountSid, authToken);
 
 
 //! Models
@@ -89,11 +89,11 @@ exports.sendSmsToParent = asyncHandler(async (req, res, next) => {
             return res.status(404).json({ success: false, message: 'Cannot find parent' });
         }
 
-        const response = await client.messages.create({
-            body: content,
-            from: '+17854501156',
-            to: _parent.phoneNumber
-        });
+        // const response = await client.messages.create({
+        //     body: content,
+        //     from: '+17854501156',
+        //     to: _parent.phoneNumber
+        // });
         if (response.errorCode == null) {
             res.status(200).json({
                 success: true
